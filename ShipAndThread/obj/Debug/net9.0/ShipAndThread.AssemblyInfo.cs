@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ShipAndThread")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1113020cdcc8fa832a774cce2a399b1032e33e4d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+11c59fd2a185cf29ac6dd2e4bf7c5b75b2ab891d")]
 [assembly: System.Reflection.AssemblyProductAttribute("ShipAndThread")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ShipAndThread")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
