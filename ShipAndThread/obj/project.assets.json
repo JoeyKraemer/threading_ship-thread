@@ -8,24 +8,31 @@
     "net9.0": []
   },
   "packageFolders": {
-    "/Users/jerry/.nuget/packages/": {}
+    "C:\\Users\\Caterina\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/ShipAndThread.csproj",
+      "projectUniqueName": "C:\\Users\\Caterina\\Desktop\\YEAR 3\\C#\\threading_ship-thread\\ShipAndThread\\ShipAndThread.csproj",
       "projectName": "ShipAndThread",
-      "projectPath": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/ShipAndThread.csproj",
-      "packagesPath": "/Users/jerry/.nuget/packages/",
-      "outputPath": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/",
+      "projectPath": "C:\\Users\\Caterina\\Desktop\\YEAR 3\\C#\\threading_ship-thread\\ShipAndThread\\ShipAndThread.csproj",
+      "packagesPath": "C:\\Users\\Caterina\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Caterina\\Desktop\\YEAR 3\\C#\\threading_ship-thread\\ShipAndThread\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/jerry/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Caterina\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -68,7 +75,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/Users/jerry/.dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\Caterina\\.dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
