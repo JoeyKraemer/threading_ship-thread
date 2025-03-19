@@ -10,10 +10,9 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 // EF Core + PostgreSQL
 builder.Services.AddDbContext<DbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString(("PostgreSQL"))));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Register TruckService for DI
-builder.Services.AddScoped<TruckDataProcessor>();
+
 
 var app = builder.Build();
 

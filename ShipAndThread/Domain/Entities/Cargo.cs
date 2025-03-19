@@ -1,10 +1,17 @@
+using System.ComponentModel.DataAnnotations;
+using ShipAndThread.Domain.Enums;
+
 namespace ShipAndThread.Domain.Entities;
 
 public class Cargo
 {
-    public int CargoId { get; set; }
-    public string Description { get; set; }
-    public double Weight { get; set; }
-    public string Destination { get; set; }
-    public string Status { get; set; }
+    [Key]
+    public int Id { get; set; }
+        
+    public CargoStatus Status { get; set; }
+        
+    public double DestinationLongitude { get; set; }
+    public double DestinationLatitude { get; set; }
+        
+    public ICollection<CargoList> CargoLists { get; set; }
 }

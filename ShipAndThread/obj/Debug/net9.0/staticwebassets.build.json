@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qJcSsglkcTzDHrPEjGnrLC/Q+ZyaAh3cxxhSxhtI77o=",
+  "Hash": "y8UQdFDDTNwa5YkFG/dX9tBVWpHvBbpghPzUF1yjZKY=",
   "Source": "ShipAndThread",
   "BasePath": "_content/ShipAndThread",
   "Mode": "Default",
@@ -8,82 +8,82 @@
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [
     {
-      "Name": "ShipAndThread/wwwroot",
+      "Name": "ShipAndThread\\wwwroot",
       "Source": "ShipAndThread",
-      "ContentRoot": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/wwwroot/",
+      "ContentRoot": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\wwwroot\\",
       "BasePath": "_content/ShipAndThread",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/gmeurzr5rw-1xt07f1bk2.gz",
+      "Identity": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\gmeurzr5rw-pwk27978d6.gz",
       "SourceId": "ShipAndThread",
       "SourceType": "Computed",
-      "ContentRoot": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/",
+      "ContentRoot": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/ShipAndThread",
-      "RelativePath": "ShipAndThread#[.{fingerprint=1xt07f1bk2}]!.bundle.scp.css.gz",
+      "RelativePath": "ShipAndThread#[.{fingerprint=pwk27978d6}]!.bundle.scp.css.gz",
       "AssetKind": "All",
       "AssetMode": "Reference",
       "AssetRole": "Alternative",
       "AssetMergeBehavior": "",
       "AssetMergeSource": "",
-      "RelatedAsset": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/projectbundle/ShipAndThread.bundle.scp.css",
+      "RelatedAsset": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\ShipAndThread.bundle.scp.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "6zergcmndc",
-      "Integrity": "kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw=",
+      "Fingerprint": "vgiqmvxdtv",
+      "Integrity": "/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/projectbundle/ShipAndThread.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\ShipAndThread.bundle.scp.css"
     },
     {
-      "Identity": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/kvldrdak4b-z4z4fil66m.gz",
+      "Identity": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\kvldrdak4b-4kywy7iv6g.gz",
       "SourceId": "ShipAndThread",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/",
+      "ContentRoot": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/ShipAndThread",
-      "RelativePath": "app#[.{fingerprint=z4z4fil66m}]?.css.gz",
+      "RelativePath": "app#[.{fingerprint=4kywy7iv6g}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
       "AssetMergeBehavior": "",
       "AssetMergeSource": "",
-      "RelatedAsset": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/wwwroot/app.css",
+      "RelatedAsset": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\wwwroot\\app.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "00bep0p0ww",
-      "Integrity": "MHgjUAK5zc04Nhll9+qGNuPr/7r9BkfSvS1yuUVvXO0=",
+      "Fingerprint": "zcos8w4b7w",
+      "Integrity": "rQ06ZVppJMbFntqcFRQT6szW4P5LSAxdi1yON8P8sdE=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/wwwroot/app.css"
+      "OriginalItemSpec": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\wwwroot\\app.css"
     },
     {
-      "Identity": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/pbyq92uk8r-1xt07f1bk2.gz",
+      "Identity": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\pbyq92uk8r-pwk27978d6.gz",
       "SourceId": "ShipAndThread",
       "SourceType": "Computed",
-      "ContentRoot": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/",
+      "ContentRoot": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/ShipAndThread",
-      "RelativePath": "ShipAndThread#[.{fingerprint=1xt07f1bk2}]?.styles.css.gz",
+      "RelativePath": "ShipAndThread#[.{fingerprint=pwk27978d6}]?.styles.css.gz",
       "AssetKind": "All",
       "AssetMode": "CurrentProject",
       "AssetRole": "Alternative",
       "AssetMergeBehavior": "",
       "AssetMergeSource": "",
-      "RelatedAsset": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/bundle/ShipAndThread.styles.css",
+      "RelatedAsset": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\bundle\\ShipAndThread.styles.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "6zergcmndc",
-      "Integrity": "kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw=",
+      "Fingerprint": "vgiqmvxdtv",
+      "Integrity": "/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/bundle/ShipAndThread.styles.css"
+      "OriginalItemSpec": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\bundle\\ShipAndThread.styles.css"
     },
     {
-      "Identity": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/bundle/ShipAndThread.styles.css",
+      "Identity": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\bundle\\ShipAndThread.styles.css",
       "SourceId": "ShipAndThread",
       "SourceType": "Computed",
-      "ContentRoot": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/bundle/",
+      "ContentRoot": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\bundle\\",
       "BasePath": "_content/ShipAndThread",
       "RelativePath": "ShipAndThread#[.{fingerprint}]?.styles.css",
       "AssetKind": "All",
@@ -94,17 +94,17 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
-      "Fingerprint": "1xt07f1bk2",
-      "Integrity": "i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4=",
+      "Fingerprint": "pwk27978d6",
+      "Integrity": "p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/bundle/ShipAndThread.styles.css"
+      "OriginalItemSpec": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\bundle\\ShipAndThread.styles.css"
     },
     {
-      "Identity": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/projectbundle/ShipAndThread.bundle.scp.css",
+      "Identity": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\ShipAndThread.bundle.scp.css",
       "SourceId": "ShipAndThread",
       "SourceType": "Computed",
-      "ContentRoot": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/projectbundle/",
+      "ContentRoot": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/ShipAndThread",
       "RelativePath": "ShipAndThread#[.{fingerprint}]!.bundle.scp.css",
       "AssetKind": "All",
@@ -115,17 +115,17 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
-      "Fingerprint": "1xt07f1bk2",
-      "Integrity": "i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4=",
+      "Fingerprint": "pwk27978d6",
+      "Integrity": "p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/projectbundle/ShipAndThread.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\ShipAndThread.bundle.scp.css"
     },
     {
-      "Identity": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/wwwroot/app.css",
+      "Identity": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\wwwroot\\app.css",
       "SourceId": "ShipAndThread",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/wwwroot/",
+      "ContentRoot": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\wwwroot\\",
       "BasePath": "_content/ShipAndThread",
       "RelativePath": "app#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -136,22 +136,22 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "z4z4fil66m",
-      "Integrity": "Ha4c/mf3tIjkIzt3U2XFuv3DMCeFOA4bXZVCoCwQigs=",
+      "Fingerprint": "4kywy7iv6g",
+      "Integrity": "9DR4jqepGIo9Cj7VCYKuZtZqXALX1jWq8UpnuF3uz30=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/app.css"
+      "OriginalItemSpec": "wwwroot\\app.css"
     }
   ],
   "Endpoints": [
     {
-      "Route": "app.css",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/kvldrdak4b-z4z4fil66m.gz",
+      "Route": "app.4kywy7iv6g.css",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\kvldrdak4b-4kywy7iv6g.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000725163162"
+          "Quality": "0.000721500722"
         }
       ],
       "ResponseHeaders": [
@@ -161,152 +161,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1378"
+          "Value": "1385"
         },
         {
           "Name": "ETag",
-          "Value": "\"MHgjUAK5zc04Nhll9+qGNuPr/7r9BkfSvS1yuUVvXO0=\""
+          "Value": "\"rQ06ZVppJMbFntqcFRQT6szW4P5LSAxdi1yON8P8sdE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"Ha4c/mf3tIjkIzt3U2XFuv3DMCeFOA4bXZVCoCwQigs=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-Ha4c/mf3tIjkIzt3U2XFuv3DMCeFOA4bXZVCoCwQigs="
-        }
-      ]
-    },
-    {
-      "Route": "app.css",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/wwwroot/app.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2426"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Ha4c/mf3tIjkIzt3U2XFuv3DMCeFOA4bXZVCoCwQigs=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-Ha4c/mf3tIjkIzt3U2XFuv3DMCeFOA4bXZVCoCwQigs="
-        }
-      ]
-    },
-    {
-      "Route": "app.css.gz",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/kvldrdak4b-z4z4fil66m.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1378"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"MHgjUAK5zc04Nhll9+qGNuPr/7r9BkfSvS1yuUVvXO0=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-MHgjUAK5zc04Nhll9+qGNuPr/7r9BkfSvS1yuUVvXO0="
-        }
-      ]
-    },
-    {
-      "Route": "app.z4z4fil66m.css",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/kvldrdak4b-z4z4fil66m.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000725163162"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1378"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"MHgjUAK5zc04Nhll9+qGNuPr/7r9BkfSvS1yuUVvXO0=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -326,13 +189,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"Ha4c/mf3tIjkIzt3U2XFuv3DMCeFOA4bXZVCoCwQigs=\""
+          "Value": "W/\"9DR4jqepGIo9Cj7VCYKuZtZqXALX1jWq8UpnuF3uz30=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "z4z4fil66m"
+          "Value": "4kywy7iv6g"
         },
         {
           "Name": "label",
@@ -340,13 +203,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Ha4c/mf3tIjkIzt3U2XFuv3DMCeFOA4bXZVCoCwQigs="
+          "Value": "sha256-9DR4jqepGIo9Cj7VCYKuZtZqXALX1jWq8UpnuF3uz30="
         }
       ]
     },
     {
-      "Route": "app.z4z4fil66m.css",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/wwwroot/app.css",
+      "Route": "app.4kywy7iv6g.css",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\wwwroot\\app.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -355,7 +218,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2426"
+          "Value": "2463"
         },
         {
           "Name": "Content-Type",
@@ -363,11 +226,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Ha4c/mf3tIjkIzt3U2XFuv3DMCeFOA4bXZVCoCwQigs=\""
+          "Value": "\"9DR4jqepGIo9Cj7VCYKuZtZqXALX1jWq8UpnuF3uz30=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -377,7 +240,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "z4z4fil66m"
+          "Value": "4kywy7iv6g"
         },
         {
           "Name": "label",
@@ -385,13 +248,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Ha4c/mf3tIjkIzt3U2XFuv3DMCeFOA4bXZVCoCwQigs="
+          "Value": "sha256-9DR4jqepGIo9Cj7VCYKuZtZqXALX1jWq8UpnuF3uz30="
         }
       ]
     },
     {
-      "Route": "app.z4z4fil66m.css.gz",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/kvldrdak4b-z4z4fil66m.gz",
+      "Route": "app.4kywy7iv6g.css.gz",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\kvldrdak4b-4kywy7iv6g.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -400,7 +263,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1378"
+          "Value": "1385"
         },
         {
           "Name": "Content-Type",
@@ -408,11 +271,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"MHgjUAK5zc04Nhll9+qGNuPr/7r9BkfSvS1yuUVvXO0=\""
+          "Value": "\"rQ06ZVppJMbFntqcFRQT6szW4P5LSAxdi1yON8P8sdE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -430,7 +293,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "z4z4fil66m"
+          "Value": "4kywy7iv6g"
         },
         {
           "Name": "label",
@@ -438,18 +301,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-MHgjUAK5zc04Nhll9+qGNuPr/7r9BkfSvS1yuUVvXO0="
+          "Value": "sha256-rQ06ZVppJMbFntqcFRQT6szW4P5LSAxdi1yON8P8sdE="
         }
       ]
     },
     {
-      "Route": "ShipAndThread.1xt07f1bk2.bundle.scp.css",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/gmeurzr5rw-1xt07f1bk2.gz",
+      "Route": "app.css",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\kvldrdak4b-4kywy7iv6g.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.003012048193"
+          "Quality": "0.000721500722"
         }
       ],
       "ResponseHeaders": [
@@ -459,15 +322,289 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "331"
+          "Value": "1385"
         },
         {
           "Name": "ETag",
-          "Value": "\"kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw=\""
+          "Value": "\"rQ06ZVppJMbFntqcFRQT6szW4P5LSAxdi1yON8P8sdE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"9DR4jqepGIo9Cj7VCYKuZtZqXALX1jWq8UpnuF3uz30=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-9DR4jqepGIo9Cj7VCYKuZtZqXALX1jWq8UpnuF3uz30="
+        }
+      ]
+    },
+    {
+      "Route": "app.css",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\wwwroot\\app.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2463"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9DR4jqepGIo9Cj7VCYKuZtZqXALX1jWq8UpnuF3uz30=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-9DR4jqepGIo9Cj7VCYKuZtZqXALX1jWq8UpnuF3uz30="
+        }
+      ]
+    },
+    {
+      "Route": "app.css.gz",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\kvldrdak4b-4kywy7iv6g.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1385"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"rQ06ZVppJMbFntqcFRQT6szW4P5LSAxdi1yON8P8sdE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-rQ06ZVppJMbFntqcFRQT6szW4P5LSAxdi1yON8P8sdE="
+        }
+      ]
+    },
+    {
+      "Route": "ShipAndThread.bundle.scp.css",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\gmeurzr5rw-pwk27978d6.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.002976190476"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "335"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I="
+        }
+      ]
+    },
+    {
+      "Route": "ShipAndThread.bundle.scp.css",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\ShipAndThread.bundle.scp.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "564"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I="
+        }
+      ]
+    },
+    {
+      "Route": "ShipAndThread.bundle.scp.css.gz",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\gmeurzr5rw-pwk27978d6.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "335"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw="
+        }
+      ]
+    },
+    {
+      "Route": "ShipAndThread.pwk27978d6.bundle.scp.css",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\gmeurzr5rw-pwk27978d6.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.002976190476"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "335"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -487,13 +624,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4=\""
+          "Value": "W/\"p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1xt07f1bk2"
+          "Value": "pwk27978d6"
         },
         {
           "Name": "label",
@@ -501,13 +638,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4="
+          "Value": "sha256-p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I="
         }
       ]
     },
     {
-      "Route": "ShipAndThread.1xt07f1bk2.bundle.scp.css",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/projectbundle/ShipAndThread.bundle.scp.css",
+      "Route": "ShipAndThread.pwk27978d6.bundle.scp.css",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\ShipAndThread.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -516,7 +653,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "543"
+          "Value": "564"
         },
         {
           "Name": "Content-Type",
@@ -524,11 +661,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4=\""
+          "Value": "\"p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -538,7 +675,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1xt07f1bk2"
+          "Value": "pwk27978d6"
         },
         {
           "Name": "label",
@@ -546,13 +683,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4="
+          "Value": "sha256-p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I="
         }
       ]
     },
     {
-      "Route": "ShipAndThread.1xt07f1bk2.bundle.scp.css.gz",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/gmeurzr5rw-1xt07f1bk2.gz",
+      "Route": "ShipAndThread.pwk27978d6.bundle.scp.css.gz",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\gmeurzr5rw-pwk27978d6.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -561,7 +698,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "331"
+          "Value": "335"
         },
         {
           "Name": "Content-Type",
@@ -569,11 +706,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw=\""
+          "Value": "\"/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -591,7 +728,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1xt07f1bk2"
+          "Value": "pwk27978d6"
         },
         {
           "Name": "label",
@@ -599,18 +736,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw="
+          "Value": "sha256-/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw="
         }
       ]
     },
     {
-      "Route": "ShipAndThread.1xt07f1bk2.styles.css",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/pbyq92uk8r-1xt07f1bk2.gz",
+      "Route": "ShipAndThread.pwk27978d6.styles.css",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\pbyq92uk8r-pwk27978d6.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.003012048193"
+          "Quality": "0.002976190476"
         }
       ],
       "ResponseHeaders": [
@@ -620,15 +757,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "331"
+          "Value": "335"
         },
         {
           "Name": "ETag",
-          "Value": "\"kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw=\""
+          "Value": "\"/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -648,13 +785,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4=\""
+          "Value": "W/\"p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1xt07f1bk2"
+          "Value": "pwk27978d6"
         },
         {
           "Name": "label",
@@ -662,13 +799,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4="
+          "Value": "sha256-p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I="
         }
       ]
     },
     {
-      "Route": "ShipAndThread.1xt07f1bk2.styles.css",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/bundle/ShipAndThread.styles.css",
+      "Route": "ShipAndThread.pwk27978d6.styles.css",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\bundle\\ShipAndThread.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -677,7 +814,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "543"
+          "Value": "564"
         },
         {
           "Name": "Content-Type",
@@ -685,11 +822,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4=\""
+          "Value": "\"p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -699,7 +836,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1xt07f1bk2"
+          "Value": "pwk27978d6"
         },
         {
           "Name": "label",
@@ -707,13 +844,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4="
+          "Value": "sha256-p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I="
         }
       ]
     },
     {
-      "Route": "ShipAndThread.1xt07f1bk2.styles.css.gz",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/pbyq92uk8r-1xt07f1bk2.gz",
+      "Route": "ShipAndThread.pwk27978d6.styles.css.gz",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\pbyq92uk8r-pwk27978d6.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -722,7 +859,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "331"
+          "Value": "335"
         },
         {
           "Name": "Content-Type",
@@ -730,11 +867,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw=\""
+          "Value": "\"/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -752,7 +889,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1xt07f1bk2"
+          "Value": "pwk27978d6"
         },
         {
           "Name": "label",
@@ -760,155 +897,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw="
-        }
-      ]
-    },
-    {
-      "Route": "ShipAndThread.bundle.scp.css",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/gmeurzr5rw-1xt07f1bk2.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.003012048193"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "331"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4="
-        }
-      ]
-    },
-    {
-      "Route": "ShipAndThread.bundle.scp.css",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/projectbundle/ShipAndThread.bundle.scp.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "543"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4="
-        }
-      ]
-    },
-    {
-      "Route": "ShipAndThread.bundle.scp.css.gz",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/gmeurzr5rw-1xt07f1bk2.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "331"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw="
+          "Value": "sha256-/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw="
         }
       ]
     },
     {
       "Route": "ShipAndThread.styles.css",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/pbyq92uk8r-1xt07f1bk2.gz",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\pbyq92uk8r-pwk27978d6.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.003012048193"
+          "Quality": "0.002976190476"
         }
       ],
       "ResponseHeaders": [
@@ -918,15 +918,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "331"
+          "Value": "335"
         },
         {
           "Name": "ETag",
-          "Value": "\"kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw=\""
+          "Value": "\"/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -946,19 +946,19 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4=\""
+          "Value": "W/\"p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4="
+          "Value": "sha256-p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I="
         }
       ]
     },
     {
       "Route": "ShipAndThread.styles.css",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/scopedcss/bundle/ShipAndThread.styles.css",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\scopedcss\\bundle\\ShipAndThread.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -967,7 +967,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "543"
+          "Value": "564"
         },
         {
           "Name": "Content-Type",
@@ -975,11 +975,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4=\""
+          "Value": "\"p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -989,13 +989,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-i5U0E5m8JN2Bl4ruXcZHf5R+u2Wp1EvF7GDEEm2s0/4="
+          "Value": "sha256-p456rkPL/WrIBQFrPosyuRWvcHJYOju3ENX4GaaIn5I="
         }
       ]
     },
     {
       "Route": "ShipAndThread.styles.css.gz",
-      "AssetFile": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/Debug/net9.0/compressed/pbyq92uk8r-1xt07f1bk2.gz",
+      "AssetFile": "C:\\Users\\Sebastian\\Desktop\\Threading in C#\\Project\\threading\\ShipAndThread\\obj\\Debug\\net9.0\\compressed\\pbyq92uk8r-pwk27978d6.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1004,7 +1004,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "331"
+          "Value": "335"
         },
         {
           "Name": "Content-Type",
@@ -1012,11 +1012,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw=\""
+          "Value": "\"/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 13 Mar 2025 09:59:22 GMT"
+          "Value": "Thu, 13 Mar 2025 10:13:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1034,7 +1034,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-kmRNnTybYChR8YUDXR9Ek97XSQ05RWVKAO+/JpK0pXw="
+          "Value": "sha256-/+HT03VXOD5Mo1KO7W3CS38jPD3JjIX8waKeLO2FuUw="
         }
       ]
     }
