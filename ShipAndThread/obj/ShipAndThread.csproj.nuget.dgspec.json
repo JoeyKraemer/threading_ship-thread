@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/ShipAndThread.csproj": {}
+    "C:\\Users\\marti\\Workspace\\Year-3\\Threading C#\\threading_ship-thread\\ShipAndThread\\ShipAndThread.csproj": {}
   },
   "projects": {
-    "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/ShipAndThread.csproj": {
+    "C:\\Users\\marti\\Workspace\\Year-3\\Threading C#\\threading_ship-thread\\ShipAndThread\\ShipAndThread.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/ShipAndThread.csproj",
+        "projectUniqueName": "C:\\Users\\marti\\Workspace\\Year-3\\Threading C#\\threading_ship-thread\\ShipAndThread\\ShipAndThread.csproj",
         "projectName": "ShipAndThread",
-        "projectPath": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/ShipAndThread.csproj",
-        "packagesPath": "/Users/jerry/.nuget/packages/",
-        "outputPath": "/Users/jerry/Library/CloudStorage/ProtonDrive-joeykramer@protonmail.com-folder/NHLStenden/Year 3/semester_2/threading_in_c/threading/gitrepo/ShipAndThread/ShipAndThread/obj/",
+        "projectPath": "C:\\Users\\marti\\Workspace\\Year-3\\Threading C#\\threading_ship-thread\\ShipAndThread\\ShipAndThread.csproj",
+        "packagesPath": "C:\\Users\\marti\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\marti\\Workspace\\Year-3\\Threading C#\\threading_ship-thread\\ShipAndThread\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/jerry/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\marti\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -62,7 +62,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/Users/jerry/.dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\marti\\.dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
