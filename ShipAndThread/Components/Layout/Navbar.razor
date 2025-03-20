@@ -1,33 +1,45 @@
-<div class="top-row ps-3 navbar">
-    <a class="mb-4" href="">
-        <img class="logo" src="images/logo-yellow-bg.png" alt="logo"/>
+@inject IJSRuntime JSRuntime
+
+<div class="sidebar @(isCollapsed ? "collapsed" : "")">
+    <button class="toggle-btn" @onclick="ToggleSidebar" style="@(isMobile ? "display:block;" : "display:none;")">☰</button>
+    <a class="logo" href="">
+        <img src="images/logo-yellow-bg.png" alt="logo" />
     </a>
-    
-    <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-        <nav>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                    Home
-                </NavLink>
-            </div>
-            
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="truckManagement">
-                    Truck Management
-                </NavLink>
-            </div>
 
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="cargoManagement">
-                    Cargo Management
-                </NavLink>
-            </div>
-
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="liveTracking">
-                    Live Tracking
-                </NavLink>
-            </div>
-        </nav>
-    </div>
+    <nav class="@(isMobile && isCollapsed ? "hidden" : "")">
+        <div class="nav-item">
+            <NavLink class="nav-link" href="truckManagement">
+                <img class="nav-icon" src="images/truckIcon.png" alt="Truck" /> Truck Management
+            </NavLink>
+        </div>
+        <div class="nav-item">
+            <NavLink class="nav-link" href="cargoManagement">
+                <img class="nav-icon" src="images/cargoIcon.png" alt="Truck" /> Cargo Management
+            </NavLink>
+        </div>
+        <div class="nav-item">
+            <NavLink class="nav-link" href="liveTracking">
+                <img class="nav-icon" src="images/pinIcon.png" alt="Truck" /> Live Tracking
+            </NavLink>
+        </div>
+    </nav>
 </div>
+
+@code {
+    private bool isCollapsed = false;
+    private bool isMobile = false;
+
+    private void ToggleSidebar()
+    {
+        isCollapsed = !isCollapsed;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            //isMobile = window.innerWidth <= 768;
+            StateHasChanged();
+        }
+    }
+}
