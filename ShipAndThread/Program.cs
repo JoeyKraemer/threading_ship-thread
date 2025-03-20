@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 using ShipAndThread.Components;
+using ShipAndThread.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 // EF Core + PostgreSQL
-builder.Services.AddDbContext<DbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString(("PostgreSQL"))));
+builder.Services.AddDbContext<LogisticsDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 
 // Register TruckService for DI
 builder.Services.AddScoped<TruckDataProcessor>();
