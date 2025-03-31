@@ -1,8 +1,12 @@
 @page "/cargoManagement"
 <PageTitle>Cargo Management</PageTitle>
 
-<h3>CargoManagement</h3>
+<div class="search">
+    <LiveSearch />
+</div>
 
-@code {
-    
-}
+<CargoCard 
+    CargoId="12345"
+    Status="On Route"
+    Destination="52°20'39 N 4°58'19 E"
+/>

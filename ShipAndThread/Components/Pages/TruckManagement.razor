@@ -1,8 +1,16 @@
 @page "/truckManagement"
 <PageTitle>Truck Management</PageTitle>
 
-<h3>TruckManagement</h3>
+<div class="search">
+    <LiveSearch />
+</div>
 
-@code {
-    
-}
+<TruckCard 
+    TruckId="12345"
+    LicensePlate="AB 123 CD"
+    Capacity="100"
+    Route="@(new List<TruckCard.RouteStop> {
+               new TruckCard.RouteStop { StopNumber = 1, Timestamp = "10:50am", Coordinates = "52°20'39\"N 4°58'19\"E" },
+               new TruckCard.RouteStop { StopNumber = 2, Timestamp = "11:01am", Coordinates = "52°20'39\"N 4°58'19\"E" }
+           })"
+/>

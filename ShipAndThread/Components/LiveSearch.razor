@@ -1,0 +1,42 @@
+﻿@code {
+    private string searchText = "";
+    private List<string> allItems = new() { "Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grapes" };
+    private List<string> filteredItems = new();
+
+    private void OnSearchChanged(ChangeEventArgs e)
+    {
+        searchText = e.Value?.ToString() ?? "";
+        FilterResults();
+    }
+    
+    private void PerformSearch()
+    {
+        FilterResults();
+    }
+
+    private void FilterResults()
+    {
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            filteredItems = allItems
+                .Where(item => item.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+        else
+        {
+            filteredItems.Clear();
+        }
+    }
+}
+
+<div>
+    <input type="text" @bind="searchText" @bind:event="oninput" />
+    <button class="search-button" @onclick="PerformSearch">Search</button>
+    
+    <ul class="search-results" style="display: @(filteredItems.Any() ? "block" : "none");">
+        @foreach (var item in filteredItems)
+        {
+            <li>@item</li>
+        }
+    </ul>
+</div>

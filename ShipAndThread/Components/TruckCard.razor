@@ -1,0 +1,58 @@
+﻿@code {
+    [Parameter] public string TruckId { get; set; } = "Unknown ID";
+    [Parameter] public string LicensePlate { get; set; } = "Unknown Plate";
+    [Parameter] public int Capacity { get; set; } = 0;
+    [Parameter] public string ImageUrl { get; set; } = "";
+    [Parameter] public List<RouteStop> Route { get; set; } = new();
+
+    private bool isExpanded = false;
+
+    private void ToggleExpand()
+    {
+        isExpanded = !isExpanded;
+    }
+}
+
+<div class="truck-card">
+    <div class="truck-info">
+        <img src="images/truckImage.png" alt="Truck Image" class="truck-image" />
+        <div class="truck-title">
+            <h2>@TruckId / @LicensePlate</h2>
+            <p>Truck capacity: @Capacity</p>
+        </div>
+    </div>
+    <button @onclick="ToggleExpand" class="expand-btn">
+        @(isExpanded ? "▲" : "▼")
+    </button>
+
+    @if (isExpanded)
+    {
+        <div class="truck-details">
+            <div class="map-container">
+                <!-- Add the map here -->
+                <p>[Map Placeholder]</p>
+            </div>
+            <div class="route-info">
+                <h4>ROUTE</h4>
+                <ul>
+                    @foreach (var stop in Route)
+                    {
+                        <li>
+                            Stop @stop.StopNumber - @stop.Timestamp <br />
+                            @stop.Coordinates
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    public class RouteStop
+    {
+        public int StopNumber { get; set; }
+        public string Timestamp { get; set; } = "";
+        public string Coordinates { get; set; } = "";
+    }
+}
