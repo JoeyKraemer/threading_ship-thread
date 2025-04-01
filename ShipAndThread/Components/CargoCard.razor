@@ -4,13 +4,9 @@
     [Parameter] public string Destination { get; set; } = "Unknown";
 }
 
-<div class="truck-card">
-    <div class="truck-info">
+<div class="cargo-card">
         <img src="images/cargoImage.png" alt="Truck Image" class="truck-image" />
-        <div class="truck-title">
-            <h2>@CargoId</h2>
-            <p>Status: @Status</p>
-            <p>Destination: @Destination</p>
-        </div>
-    </div>
+        <h2>@CargoId</h2>
+        <p>Status: @Status</p>
+        <p>Destination: @Destination</p>
 </div>
