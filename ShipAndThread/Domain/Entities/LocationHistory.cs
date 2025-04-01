@@ -5,18 +5,11 @@ namespace ShipAndThread.Domain.Entities;
 
 public class LocationHistory
 {
-    [Key]
     public int Id { get; set; }
-        
-    public int TruckId { get; set; }
-        
-    [Required]
-    public DateTime Timestamp { get; set; }
-        
+    public required int TruckId { get; set; } // Foreign key
+    public required Truck Truck { get; set; } // Navigation property
+
     public double Latitude { get; set; }
     public double Longitude { get; set; }
-        
-    [ForeignKey("TruckId")]
-    public Truck Truck { get; set; }
-    
+    public DateTime Timestamp { get; set; }
 }

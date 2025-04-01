@@ -1,15 +1,17 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System;
+using System.Collections.Generic;
 
 namespace ShipAndThread.Domain.Entities;
 
 public class CargoList
 {
-    public int CargoId { get; set; }
-    public int TruckId { get; set; }
+    public required int CargoId { get; set; }
+    public required int TruckId { get; set; }
         
     [ForeignKey("CargoId")]
-    public Cargo Cargo { get; set; }
+    public required Cargo Cargo { get; set; }
         
     [ForeignKey("TruckId")]
-    public Truck Truck { get; set; }
+    public required Truck Truck { get; set; }
 }
