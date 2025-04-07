@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using ShipAndThread.Infrastructure.Persistence;
 using ShipAndThread.Domain.Entities;
@@ -16,11 +17,13 @@ namespace ShipAndThread.BlackBox
         private readonly DataGenerator _dataGenerator;
         private readonly ArrayList _trucks;
         private readonly ArrayList _cargoes;
+        private readonly IHubContext<CommunicationHub> _hubContext;
 
-        public TruckDataGenerator(AppDbContext context, DataGenerator dataGenerator)
+        public TruckDataGenerator(AppDbContext context, DataGenerator dataGenerator, IHubContext<CommunicationHub> hubContext)
         {
             _context = context;
             _dataGenerator = dataGenerator;
+            _hubContext = hubContext;
             _trucks = new ArrayList();
             _cargoes = new ArrayList();
         }
@@ -125,6 +128,15 @@ namespace ShipAndThread.BlackBox
 
             _context.LocationHistories.Add(locationHistory);
             await _context.SaveChangesAsync();
+            
+            // Send the new location to all connected clients via SignalR
+            await _hubContext.Clients.All.SendAsync("ReceiveLocationUpdate", new
+            {
+                truckId = truck.TruckId,
+                latitude = locationHistory.Latitude,
+                longitude = locationHistory.Longitude,
+                timestamp = locationHistory.Timestamp
+            });
         }
 
         /// <summary>

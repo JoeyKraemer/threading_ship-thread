@@ -7,6 +7,7 @@ using ShipAndThread.Infrastructure.Persistence;
 using ShipAndThread.Application.Services;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,11 @@ builder.Services.AddRazorComponents()
 // Register TruckService for DI
 builder.Services.AddScoped<TruckService>();
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
+
+app.MapHub<CommunicationHub>("/communicationHub");
 
 // Initialize the database
 using (var scope = app.Services.CreateScope())
@@ -67,5 +72,7 @@ static async Task RunTruckDataGeneration(IServiceProvider services)
 {
     using var scope = services.CreateScope();
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    await AsyncDataGeneration.Go(context);
+    var hubContext = scope.ServiceProvider.GetRequiredService<IHubContext<CommunicationHub>>();
+    
+    await AsyncDataGeneration.Go(context, hubContext);
 }
