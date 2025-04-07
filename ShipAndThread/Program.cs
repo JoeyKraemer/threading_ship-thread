@@ -1,11 +1,21 @@
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ShipAndThread.BlackBox;
 using ShipAndThread.Components;
-using ShipAndThread.Infrastructure.Data;
+using ShipAndThread.Infrastructure.Persistence;
+using ShipAndThread.Application.Services;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Create and open the in-memory SQLite connection
+var sqliteConnectionString = "Data Source=:memory:;Cache=Shared";
+
+// Register the DbContext with the in-memory SQLite connection
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(sqliteConnectionString), ServiceLifetime.Scoped);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -19,6 +29,13 @@ builder.Services.AddDbContext<LogisticsDbContext>(options =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.OpenConnection(); // Open the connection
+    dbContext.Database.EnsureCreated();  // Create the schema
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -28,8 +45,6 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-
 app.UseAntiforgery();
 
 app.MapStaticAssets();

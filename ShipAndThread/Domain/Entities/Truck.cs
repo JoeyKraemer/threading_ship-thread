@@ -1,16 +1,14 @@
-using ShipAndThread.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShipAndThread.Domain.Entities;
 
 public class Truck
 {
-    public int TruckId { get; set; }
-    public string LicensePlate { get; set; }
-    public int DriverId { get; set; }
-    public Location CurrentLocation { get; set; }
-    public TruckStatus Status { get; set; } 
-    public int? CargoId { get; set; }
+    public int TruckId { get; set; } // Primary key
+    public string? LicensePlate { get; set; }
+    public int? Capacity { get; set; }
+    public LocationHistory? LocationHistory { get; set; } // Optional
 
-    public Driver Driver { get; set; } 
-    public Cargo? Cargo { get; set; }
+    public ICollection<Cargo> CargoList { get; set; } = new List<Cargo>();
 }
