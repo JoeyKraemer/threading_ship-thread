@@ -1,55 +1,188 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Text.Json;
+using System.Linq;
 using System.Threading.Tasks;
-using BlackBox;
+using Microsoft.EntityFrameworkCore;
+using ShipAndThread.Infrastructure.Persistence;
+using ShipAndThread.Domain.Entities;
+using ShipAndThread.Domain.Enums;
 
 namespace ShipAndThread.BlackBox
 {
     public class TruckDataGenerator
     {
-        private DataGenerator dataGenerator = new DataGenerator();
+        private readonly AppDbContext _context;
+        private readonly DataGenerator _dataGenerator;
+        private readonly ArrayList _trucks;
+        private readonly ArrayList _cargoes;
 
-        public async Task GenerateTruckDataAsync(int interval, List<Truck> trucks)
+        public TruckDataGenerator(AppDbContext context, DataGenerator dataGenerator)
         {
-            int routeIndex = 0;
-            var route = new List<(double Latitude, double Longitude)>
+            _context = context;
+            _dataGenerator = dataGenerator;
+            _trucks = new ArrayList();
+            _cargoes = new ArrayList();
+        }
+
+        /// <summary>
+        /// Initializes the list of trucks by fetching them from the database
+        /// and adding them to the _trucks ArrayList. Limits the number of trucks
+        /// to the specified truckCount.
+        /// </summary>
+        public async Task InitializeTrucksAsync(int truckCount)
+        {
+            var trucks = await _context.Trucks.ToListAsync();
+            if (trucks.Count > truckCount)
+                trucks = trucks.Take(truckCount).ToList();
+
+            foreach (var truck in trucks)
             {
-                (37.7749, -122.4194),  // Start point (San Francisco)
-                (37.7849, -122.4094),
-                (37.7949, -122.3994),
-                (37.8049, -122.3894),
-                (37.8149, -122.3794)   // End point
+                _trucks.Add(truck);
+            }
+        }
+
+        /// <summary>
+        /// Assigns a specified number of cargo items to a given truck.
+        /// Generates cargo with unique IDs and random status.
+        /// </summary>
+        public async Task AssignCargoToTruck(Truck truck, int cargoCount)
+        {
+            for (int i = 0; i < cargoCount; i++)
+            {
+                var cargo = new Cargo
+                {
+                    Id = _cargoes.Count + 1,
+                    TruckId = truck.TruckId,
+                    Status = CargoStatus.OnRoute,
+                };
+
+                truck.CargoList.Add(cargo);
+                _cargoes.Add(cargo);
+                
+                // Add cargo to the database
+                _context.Cargoes.Add(cargo);
+            }
+            
+            // Save all changes to the database
+            await _context.SaveChangesAsync();
+        }
+        
+        /// <summary>
+        /// Simulates the truck driving along a generated route and dropping off cargo.
+        /// The truck stops at each destination in the route, drops off one cargo item,
+        /// and proceeds to the next destination after a random interval between 2-12 seconds.
+        /// </summary>
+        public async Task SimulateTruckRouteAsync(Truck truck)
+        {
+            var route = GenerateRoute(truck.CargoList.Count);
+            var random = new Random();
+
+            foreach (var destination in route)
+            {
+                // Generate a random interval between 2000ms (2 seconds) and 12000ms (12 seconds)
+                int randomIntervalMs = random.Next(2000, 12001);
+                await DriveToDestination(truck, destination, randomIntervalMs);
+                DropOffCargo(truck, destination);
+            }
+        }
+
+        /// <summary>
+        /// Generates a list of random geographical coordinates to represent
+        /// the route that the truck will follow. The number of stops is determined
+        /// by the number of cargo items.
+        /// </summary>
+        private List<(double Latitude, double Longitude)> GenerateRoute(int stops)
+        {
+            var route = new List<(double Latitude, double Longitude)>();
+
+            for (int i = 0; i < stops; i++)
+            {
+                route.Add(_dataGenerator.GenerateCoordinates());
+            }
+
+            return route;
+        }
+
+        /// <summary>
+        /// Simulates the truck driving to a specified destination. Adds a delay
+        /// to mimic the travel time and saves the truck's location history to the database.
+        /// </summary>
+        private async Task DriveToDestination(Truck truck, (double Latitude, double Longitude) destination, int interval)
+        {
+            // Simulate driving to the destination
+            await Task.Delay(interval);
+
+            // Create location history
+            var locationHistory = new LocationHistory
+            {
+                TruckId = truck.TruckId,
+                Truck = truck, // Set the Truck property
+                Latitude = destination.Latitude,
+                Longitude = destination.Longitude,
+                Timestamp = _dataGenerator.GenerateTimestamp()
             };
 
-            while (routeIndex < route.Count)
+            _context.LocationHistories.Add(locationHistory);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Simulates dropping off a cargo item at the current destination.
+        /// Removes the cargo from the truck's cargo list and prints information
+        /// about the drop-off.
+        /// </summary>
+        private void DropOffCargo(Truck truck, (double Latitude, double Longitude) destination)
+        {
+            if (truck.CargoList.Any())
             {
-                foreach (var truck in trucks)
+                var cargo = truck.CargoList.First();
+                truck.CargoList.Remove(cargo);
+                cargo.Status = CargoStatus.Delivered;
+                _cargoes.Remove(cargo);
+
+                // Print information about the truck and cargo
+                Console.WriteLine($"Truck {truck.TruckId} dropped off cargo at {destination.Latitude}, {destination.Longitude} with status {cargo.Status}");
+            }
+        }
+        
+        /// <summary>
+        /// Runs the complete truck simulation process by initializing trucks, assigning cargo,
+        /// and simulating their routes. This method orchestrates the entire simulation workflow
+        /// from start to finish, connecting all the individual simulation components.
+        /// </summary>
+        public async Task RunSimulationAsync(int truckCount, int cargoPerTruck)
+        {
+            try
+            {
+                // Step 1: Initialize trucks from the database
+                await InitializeTrucksAsync(truckCount);
+                Console.WriteLine($"Initialized {_trucks.Count} trucks for simulation");
+
+                // Step 2: Assign cargo to each truck
+                foreach (Truck truck in _trucks)
                 {
-                    var (latitude, longitude) = route[routeIndex];
-                    var timestamp = dataGenerator.GenerateTimestamp();
-                    var status = dataGenerator.GenerateStatus();
-
-                    var data = new TruckData()
-                    {
-                        Truck = new Location
-                        {
-                            Coordinates = new Coordinates { Latitude = latitude, Longitude = longitude },
-                            Timestamp = timestamp
-                        },
-                        Package = new Package
-                        {
-                            Status = status,
-                            Destination = new Coordinates { Latitude = latitude + 0.001, Longitude = longitude + 0.001 }
-                        }
-                    };
-
-                    var json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
-                    Console.WriteLine(json);
+                    await AssignCargoToTruck(truck, cargoPerTruck);
+                    Console.WriteLine($"Assigned {cargoPerTruck} cargo items to Truck {truck.TruckId}");
                 }
 
-                routeIndex++;
-                await Task.Delay(interval);
+                // Step 3: Simulate each truck's route with random intervals
+                var simulationTasks = new List<Task>();
+                
+                foreach (Truck truck in _trucks)
+                {
+                    Console.WriteLine($"Starting route simulation for Truck {truck.TruckId}");
+                    simulationTasks.Add(SimulateTruckRouteAsync(truck));
+                }
+
+                // Wait for all truck simulations to complete
+                await Task.WhenAll(simulationTasks);
+                Console.WriteLine("All truck simulations completed successfully");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in truck simulation: {ex.Message}");
+                throw;
             }
         }
     }

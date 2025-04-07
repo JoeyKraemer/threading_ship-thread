@@ -5,34 +5,31 @@ using ShipAndThread.BlackBox;
 using ShipAndThread.Components;
 using ShipAndThread.Infrastructure.Persistence;
 using ShipAndThread.Application.Services;
-
-
+using System;
+using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Create and open the in-memory SQLite connection
-var sqliteConnectionString = "Data Source=:memory:;Cache=Shared";
+// Create a connection string for SQLite that uses a file instead of in-memory
+var sqliteConnectionString = "Data Source=ShipAndThread.db";
 
-// Register the DbContext with the in-memory SQLite connection
+// Register the DbContext with SQLite
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(sqliteConnectionString), ServiceLifetime.Scoped);
+    options.UseSqlite(sqliteConnectionString), ServiceLifetime.Singleton);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 // Register TruckService for DI
-builder.Services.AddScoped<TruckDataProcessor>();
-
-builder.Services.AddDbContext<LogisticsDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
+builder.Services.AddScoped<TruckService>();
 
 var app = builder.Build();
 
+// Initialize the database
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    dbContext.Database.OpenConnection(); // Open the connection
     dbContext.Database.EnsureCreated();  // Create the schema
 }
 
@@ -51,11 +48,24 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-_ = RunTruckDataGeneration();
+// Start the truck data generation in a background task
+_ = Task.Run(async () => 
+{
+    try
+    {
+        await RunTruckDataGeneration(app.Services);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error in truck data generation: {ex.Message}");
+    }
+});
 
 app.Run();
 
-static async Task RunTruckDataGeneration()
+static async Task RunTruckDataGeneration(IServiceProvider services)
 {
-    await AsyncDataGeneration.Go();
+    using var scope = services.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await AsyncDataGeneration.Go(context);
 }

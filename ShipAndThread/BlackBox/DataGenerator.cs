@@ -1,3 +1,5 @@
+using ShipAndThread.Domain.Enums;
+
 namespace ShipAndThread.BlackBox;
 
 using System;
@@ -16,11 +18,5 @@ public class DataGenerator
     public DateTime GenerateTimestamp()
     {
         return DateTime.Now;
-    }
-
-    public string GenerateStatus()
-    {
-        string[] statuses = { "ON ROUTE", "DELIVERED" };
-        return statuses[random.Next(statuses.Length)];
     }
 }
