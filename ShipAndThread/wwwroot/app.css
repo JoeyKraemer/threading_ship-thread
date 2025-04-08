@@ -36,3 +36,222 @@ h1:focus {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+/* SHIP AND THREAD STYLING */
+
+body {
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+/* sidebar
+ */
+
+.sidebar {
+    grid-column: -1/ 1;
+    height: 100vh;
+    background: #FFE135;
+    color: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    transition: width 0.3s;
+}
+
+.sidebar.collapsed {
+    width: 60px;
+}
+
+.sidebar .logo img {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.nav-item {
+    margin: 20px 0;
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: black;
+    text-decoration: none;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: black;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+        overflow: hidden;
+    }
+    .sidebar nav {
+        display: none;
+    }
+    .sidebar.collapsed nav {
+        display: block;
+    }
+}
+
+/* map
+ */
+
+.main-map {
+    grid-column: 2/6;
+    margin-left: 15px;
+}
+
+/* home page
+ */
+
+.log {
+    grid-column: 2/6;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+/* search bar
+ */
+.search{
+    grid-column: 2/ 5;
+}
+
+.search-button{
+    background: #FFE135;
+    padding: 10px;
+    border: none;
+    border-radius: 7px;
+    margin-left: 10px;
+}
+
+.search-button:hover{
+    border: 2px solid #D7BC21;
+    padding: 8px;
+}
+ 
+ .search-bar{
+     width: 80%;
+     margin-top: 15px;
+     padding: 5px;
+     font-size: 16px;
+     border-radius: 10px;
+ }
+ 
+.search-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    max-width: 200px;
+    background: white;
+    position: absolute;
+}
+
+.search-results li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.search-results li:hover {
+    background: lightgray;
+}
+
+/* truck card
+ */
+
+.truck-card{
+    grid-column: 2/6;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px;
+    background: #D3CFB9;
+}
+
+.truck-closed {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.truck-info{
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+}
+
+.truck-title{
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.truck-title>h2{
+    font-size: 22px;
+}
+
+.truck-title>p{
+    margin-top: -7px;
+}
+
+.expand-btn{
+    width: 20px;
+    height: 20px;
+    margin-top: 40px;
+    margin-right: 20px;
+    border: none;
+    background: #D3CFB9;
+}
+
+.truck-details {
+    display: none;
+}
+
+.truck-details.expanded {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.map-card{
+    margin-top: 15px;
+    width: 50%;
+}
+
+.route-info{
+    margin-left: 25px;
+}
+
+/* cargo card
+ */
+
+.cargo-card{
+    grid-column: 2/6;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px;
+    background: #D3CFB9;
+}

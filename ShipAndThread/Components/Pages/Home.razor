@@ -2,6 +2,87 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="main-map">
+    <LeafletMap Latitude="52.3800" Longitude="4.9000" Zoom="11" Trucks="@truckMarkers"/>
+</div>
 
-Welcome to Ship & Thread.
+<div class="log">
+    <h2>Activity Log</h2>
+    <ul>
+        @foreach (var entry in activityLog)
+        {
+            <li>
+                <p>@entry.Time.ToString("HH:mm:ss")</p>
+                <p>
+                    @((MarkupString)entry.Message.Replace(
+                        "Truck " + entry.Message.Split(' ')[1],
+                        $"<span style=\"text-decoration: underline; text-decoration-color: {entry.Color};\">Truck {entry.Message.Split(' ')[1]}</span>"
+                    ))
+                </p>
+            </li>
+        }
+    </ul>
+</div>
+
+@code {
+    private class ActivityEntry
+    {
+        public DateTime Time { get; set; }
+        public string Message { get; set; } = "";
+        public string Color { get; set; } = "";
+    }
+
+    private List<ActivityEntry> activityLog = new();
+
+    private List<LeafletMap.TruckMarker> truckMarkers = new();
+
+    protected override void OnInitialized()
+    {
+        // Initialize activity log
+        activityLog = new List<ActivityEntry>
+        {
+            new ActivityEntry
+            {
+                Time = DateTime.Today.AddHours(10).AddMinutes(3).AddSeconds(12),
+                Message = "Truck 12345 Delivered Cargo 2345 at 52°20'39\"N 4°58'19\"E",
+                Color = GetColorFromTruckId("12345")
+            },
+            new ActivityEntry
+            {
+                Time = DateTime.Today.AddHours(10).AddMinutes(3).AddSeconds(30),
+                Message = "Truck 23456 Delivered Cargo 1256 at 52°22'10\"N 4°54'32\"E",
+                Color = GetColorFromTruckId("23456")
+            },
+            new ActivityEntry
+            {
+                Time = DateTime.Today.AddHours(10).AddMinutes(3).AddSeconds(48),
+                Message = "Truck 34567 Delivered Cargo 7890 at 52°19'25\"N 4°53'08\"E",
+                Color = GetColorFromTruckId("34567")
+            }
+        };
+
+        // Initialize truck markers
+        truckMarkers = new List<LeafletMap.TruckMarker>
+        {
+            new LeafletMap.TruckMarker { TruckId = "12345", Latitude = 52.3441, Longitude = 4.9512 },
+            new LeafletMap.TruckMarker { TruckId = "23456", Latitude = 52.4049, Longitude = 4.8970 },
+            new LeafletMap.TruckMarker { TruckId = "34567", Latitude = 52.3900, Longitude = 4.8800 },
+            new LeafletMap.TruckMarker { TruckId = "46597", Latitude = 52.3800, Longitude = 5.0000 },
+            new LeafletMap.TruckMarker { TruckId = "78546", Latitude = 52.3580, Longitude = 4.9400 },
+            new LeafletMap.TruckMarker { TruckId = "58964", Latitude = 52.3694, Longitude = 4.9248 }
+        };
+
+        // Assign colors to trucks
+        foreach (var truck in truckMarkers)
+        {
+            truck.Color = GetColorFromTruckId(truck.TruckId);
+        }
+    }
+
+    private string GetColorFromTruckId(string truckId)
+    {
+        var colors = new[] { "red", "blue", "green", "orange", "purple", "pink", "yellow", "brown", "teal" };
+        int hash = Math.Abs(truckId.GetHashCode());
+        return colors[hash % colors.Length];
+    }
+}

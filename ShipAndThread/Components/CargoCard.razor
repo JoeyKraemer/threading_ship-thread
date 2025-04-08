@@ -1,0 +1,14 @@
+﻿@using ShipAndThread.Domain.Entities
+@using ShipAndThread.Domain.Enums
+@code {
+    [Parameter] public int CargoId { get; set; } = 0000;
+    [Parameter] public CargoStatus Status { get; set; } = CargoStatus.OnRoute;
+    [Parameter] public string TruckLicense { get; set; }
+}
+
+<div class="cargo-card">
+        <img src="images/cargoImage.png" alt="Truck Image" class="truck-image" />
+        <h2>@CargoId</h2>
+        <p>Status: @Status</p>
+        <p>Truck: @TruckLicense</p>
+</div>
