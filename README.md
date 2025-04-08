@@ -29,5 +29,18 @@ Out of the list of threading concepts, these are four that are applied to a carg
 - Cargo assignment management
 - Event and Incident handling*
 
+## How to Run
+
+1. Clone the repository
+2. Open the solution in IDE
+3. Install Packages: 
+```
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.InMemory
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+```
+4. Build the solution
+5. Run the solution
+
 
 *niceToHaves
