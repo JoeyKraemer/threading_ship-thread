@@ -1,5 +1,10 @@
 @page "/cargoManagement"
 @using ShipAndThread.Domain.Entities
+@using ShipAndThread.Application.Services
+@inject CargoService CargoService
+@using Microsoft.AspNetCore.SignalR.Client
+@using ShipAndThread.Domain.Enums
+@inject NavigationManager Navigation
 @rendermode InteractiveServer
 
 <PageTitle>Cargo Management</PageTitle>
@@ -12,9 +17,7 @@
 {
     @foreach (var cargo in filteredCargo)
     {
-        <CargoCard CargoId="@cargo.Id"
-                   Status="@cargo.Status"
-                   TruckLicense="@cargo.Truck?.LicensePlate" />
+        <CargoCard Cargo="@cargo" />
     }
 }
 else
@@ -23,52 +26,51 @@ else
 }
 
 @code {
+    private HubConnection? _hubConnection;
     private string searchText = "";
-    
-    // Sample cargo data
+
     private List<Cargo> allCargo = new();
+    private List<Cargo> filteredCargo = new();
 
-    private List<Cargo> filteredCargo;
-
-    // Initialize and populate the filteredCargo list
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        filteredCargo = allCargo; // Initially, show all cargo items
-        Console.WriteLine("OnInitialized: All cargo loaded."); // Debugging line
+        allCargo = await CargoService.GetAllCargoAsync();
+        filteredCargo = allCargo;
+
+        // Setup SignalR connection
+        _hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("/communicationHub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        _hubConnection.On<List<Cargo>>("ReceiveCargoUpdate", (updatedCargo) =>
+        {
+            allCargo = updatedCargo
+                .Where(c => c.Status != CargoStatus.Delivered)
+                .ToList();
+            FilterResults(); // Reapply search
+            InvokeAsync(StateHasChanged);
+        });
+
+        await _hubConnection.StartAsync();
     }
 
-    // Handle search change event and filter the results
     private void HandleSearchChanged(string searchText)
     {
-        Console.WriteLine($"HandleSearchChanged called with searchText: {searchText}"); // Debugging line
         this.searchText = searchText;
         FilterResults();
     }
 
-    // Filter cargo list based on the search text
     private void FilterResults()
     {
-        Console.WriteLine($"FilterResults called with searchText: {searchText}"); // Debugging line
-
         if (!string.IsNullOrWhiteSpace(searchText))
         {
-            // Debugging: Print allCargo to check its content
-            Console.WriteLine("Filtering cargo items...");
-            foreach (var cargo in allCargo)
-            {
-                Console.WriteLine($"CargoId: {cargo.Id}, Status: {cargo.Status}, TruckLicense: {cargo.Truck.LicensePlate}");
-            }
-
-            // Filter cargo by CargoId matching the search text
             filteredCargo = allCargo
                 .Where(cargo => cargo.Id.ToString().Contains(searchText, StringComparison.OrdinalIgnoreCase))
                 .ToList();
-            Console.WriteLine($"Filtered cargo count: {filteredCargo.Count}"); // Debugging line
         }
         else
         {
-            // If no search text, show all cargo items
-            Console.WriteLine("No search text, showing all cargo."); // Debugging line
             filteredCargo = allCargo;
         }
     }

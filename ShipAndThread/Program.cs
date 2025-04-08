@@ -24,6 +24,7 @@ builder.Services.AddRazorComponents()
 
 // Register TruckService for DI
 builder.Services.AddScoped<TruckService>();
+builder.Services.AddScoped<CargoService>();
 
 builder.Services.AddScoped<ITruckDataSimulationService, TruckDataSimulationService>();
 
