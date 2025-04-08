@@ -1,4 +1,5 @@
 @page "/cargoManagement"
+@using ShipAndThread.Domain.Entities
 @rendermode InteractiveServer
 
 <PageTitle>Cargo Management</PageTitle>
@@ -11,9 +12,9 @@
 {
     @foreach (var cargo in filteredCargo)
     {
-        <CargoCard CargoId="@cargo.CargoId"
+        <CargoCard CargoId="@cargo.Id"
                    Status="@cargo.Status"
-                   Destination="@cargo.Destination" />
+                   TruckLicense="@cargo.Truck.LicensePlate" />
     }
 }
 else
@@ -62,12 +63,12 @@ else
             Console.WriteLine("Filtering cargo items...");
             foreach (var cargo in allCargo)
             {
-                Console.WriteLine($"CargoId: {cargo.CargoId}, Status: {cargo.Status}, Destination: {cargo.Destination}");
+                Console.WriteLine($"CargoId: {cargo.Id}, Status: {cargo.Status}, TruckLicense: {cargo.Truck.LicensePlate}");
             }
 
             // Filter cargo by CargoId matching the search text
             filteredCargo = allCargo
-                .Where(cargo => cargo.CargoId.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                .Where(cargo => cargo.Id.ToString().Contains(searchText, StringComparison.OrdinalIgnoreCase))
                 .ToList();
             Console.WriteLine($"Filtered cargo count: {filteredCargo.Count}"); // Debugging line
         }
@@ -77,13 +78,4 @@ else
             Console.WriteLine("No search text, showing all cargo."); // Debugging line
             filteredCargo = allCargo;
         }
-    }
-
-    // Cargo model class
-    public class Cargo
-    {
-        public string CargoId { get; set; }
-        public string Status { get; set; }
-        public string Destination { get; set; }
-    }
 }

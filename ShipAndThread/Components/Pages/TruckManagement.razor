@@ -1,4 +1,5 @@
 ﻿@page "/truckManagement"
+@using ShipAndThread.Domain.Entities
 @rendermode InteractiveServer
 
 <PageTitle>Truck Management</PageTitle>
@@ -15,7 +16,7 @@
                    TruckId="@truck.TruckId"
                    LicensePlate="@truck.LicensePlate"
                    Capacity="@truck.Capacity"
-                   Route="@truck.Route"/>
+                  />
     }
 }
 else
@@ -29,87 +30,10 @@ else
     {
        new Truck
         {
-        TruckId = "88245",
+        TruckId = 88245,
         LicensePlate = "AB 123 CD",
-        Capacity = 100,
-        Route = new List<TruckCard.RouteStop>
-        {
-            new TruckCard.RouteStop
-            {
-                StopNumber = 1,
-                Timestamp = "10:50am",
-                Coordinates = "52°20'39\"N 4°58'19\"E",
-                Latitude = 52.3441,
-                Longitude = 4.9512
-            },
-            new TruckCard.RouteStop
-            {
-                StopNumber = 2,
-                Timestamp = "11:20am",
-                Coordinates = "52°21'15\"N 4°59'30\"E",
-                Latitude = 52.3543,
-                Longitude = 4.9925
-            }
-        }
-    },
-    new Truck
-    {
-        TruckId = "67890",
-        LicensePlate = "XY 987 ZW",
-        Capacity = 150,
-        Route = new List<TruckCard.RouteStop>
-        {
-            new TruckCard.RouteStop
-            {
-                StopNumber = 1,
-                Timestamp = "11:15am",
-                Coordinates = "52°21'45\"N 4°58'50\"E",
-                Latitude = 52.4049,
-                Longitude = 4.8970
-            },
-            new TruckCard.RouteStop
-            {
-                StopNumber = 2,
-                Timestamp = "11:45am",
-                Coordinates = "52°22'05\"N 4°59'05\"E",
-                Latitude = 52.3687,
-                Longitude = 4.9248
-            },
-            new TruckCard.RouteStop
-            {
-            StopNumber = 3,
-            Timestamp = "10:50am",
-            Coordinates = "52°21'15\"N 4°59'30\"E",
-            Latitude = 52.3543,
-            Longitude = 4.9925
+        Capacity = 100
         },
-        }
-    },
-    new Truck
-    {
-        TruckId = "34567",
-        LicensePlate = "EF 456 GH",
-        Capacity = 200,
-        Route = new List<TruckCard.RouteStop>
-        {
-            new TruckCard.RouteStop
-            {
-                StopNumber = 1,
-                Timestamp = "9:30am",
-                Coordinates = "52°19'25\"N 4°53'08\"E",
-                Latitude = 52.3247,
-                Longitude = 4.8859
-            },
-            new TruckCard.RouteStop
-            {
-                StopNumber = 2,
-                Timestamp = "10:00am",
-                Coordinates = "52°18'10\"N 4°54'30\"E",
-                Latitude = 52.3025,
-                Longitude = 4.9082
-            }
-        }
-    },
     };
 
     private List<Truck> filteredTrucks;
@@ -131,20 +55,12 @@ else
         if (!string.IsNullOrWhiteSpace(searchText))
         {
             filteredTrucks = allTrucks
-                .Where(truck => truck.TruckId.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                .Where(truck => truck.TruckId.ToString().Contains(searchText, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
         else
         {
             filteredTrucks = allTrucks;
         }
-    }
-
-    public class Truck
-    {
-        public string TruckId { get; set; }
-        public string LicensePlate { get; set; }
-        public int Capacity { get; set; }
-        public List<TruckCard.RouteStop> Route { get; set; }
     }
 }
