@@ -1,3 +1,4 @@
+﻿@rendermode InteractiveServer
 @page "/truckManagement"
 <PageTitle>Truck Management</PageTitle>
 
@@ -5,12 +6,24 @@
     <LiveSearch />
 </div>
 
-<TruckCard 
+<TruckCard
     TruckId="12345"
     LicensePlate="AB 123 CD"
     Capacity="100"
     Route="@(new List<TruckCard.RouteStop> {
-               new TruckCard.RouteStop { StopNumber = 1, Timestamp = "10:50am", Coordinates = "52°20'39\"N 4°58'19\"E" },
-               new TruckCard.RouteStop { StopNumber = 2, Timestamp = "11:01am", Coordinates = "52°20'39\"N 4°58'19\"E" }
+               new TruckCard.RouteStop {
+                   StopNumber = 1,
+                   Timestamp = "10:50am",
+                   Coordinates = "52°20'39\"N 4°58'19\"E",
+                   Latitude = 52.344,
+                   Longitude = 4.972
+               },
+               new TruckCard.RouteStop {
+                   StopNumber = 2,
+                   Timestamp = "11:01am",
+                   Coordinates = "52°21'39\"N 4°59'19\"E",
+                   Latitude = 52.360,
+                   Longitude = 4.988
+               }
            })"
 />

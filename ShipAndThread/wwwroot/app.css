@@ -37,6 +37,7 @@ h1:focus {
     text-align: start;
 }
 
+/* SHIP AND THREAD STYLING */
 
 body {
     padding: 0;
@@ -168,7 +169,7 @@ body {
 .truck-card{
     grid-column: 2/6;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     width: 100%;
     margin-top: 20px;
@@ -176,9 +177,17 @@ body {
     background: #D3CFB9;
 }
 
+.truck-closed {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .truck-info{
     display: flex;
     flex-direction: row;
+    height: fit-content;
 }
 
 .truck-title{
@@ -202,6 +211,25 @@ body {
     margin-right: 20px;
     border: none;
     background: #D3CFB9;
+}
+
+.truck-details {
+    display: none;
+}
+
+.truck-details.expanded {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.map-card{
+    margin-top: 15px;
+    width: 50%;
+}
+
+.route-info{
+    margin-left: 25px;
 }
 
 /* cargo card
