@@ -1,29 +1,70 @@
-﻿@rendermode InteractiveServer
-@page "/truckManagement"
+﻿@page "/truckManagement"
+@rendermode InteractiveServer
+
 <PageTitle>Truck Management</PageTitle>
 
 <div class="search">
-    <LiveSearch />
+    <LiveSearch OnSearchChanged="HandleSearchChanged"/>
 </div>
 
-<TruckCard
-    TruckId="12345"
-    LicensePlate="AB 123 CD"
-    Capacity="100"
-    Route="@(new List<TruckCard.RouteStop> {
-               new TruckCard.RouteStop {
-                   StopNumber = 1,
-                   Timestamp = "10:50am",
-                   Coordinates = "52°20'39\"N 4°58'19\"E",
-                   Latitude = 52.344,
-                   Longitude = 4.972
-               },
-               new TruckCard.RouteStop {
-                   StopNumber = 2,
-                   Timestamp = "11:01am",
-                   Coordinates = "52°21'39\"N 4°59'19\"E",
-                   Latitude = 52.360,
-                   Longitude = 4.988
-               }
-           })"
-/>
+@if (filteredTrucks.Any())
+{
+    @foreach (var truck in filteredTrucks)
+    {
+        <TruckCard @key="@truck.TruckId"
+                   TruckId="@truck.TruckId"
+                   LicensePlate="@truck.LicensePlate"
+                   Capacity="@truck.Capacity"
+                   Route="@truck.Route"/>
+    }
+}
+else
+{
+    <p>No trucks found matching the search criteria.</p>
+}
+
+@code {
+    private string searchText = "";
+    private List<Truck> allTrucks = new()
+    {
+        new Truck { TruckId = "88245", LicensePlate = "AB 123 CD", Capacity = 100, Route = new List<TruckCard.RouteStop> { new TruckCard.RouteStop { StopNumber = 1, Timestamp = "10:50am", Coordinates = "52°20'39\"N 4°58'19\"E" } } },
+        new Truck { TruckId = "67890", LicensePlate = "XY 987 ZW", Capacity = 150, Route = new List<TruckCard.RouteStop> { new TruckCard.RouteStop { StopNumber = 1, Timestamp = "11:15am", Coordinates = "52°21'45\"N 4°58'50\"E" } } },
+        // Add more trucks here
+    };
+
+    private List<Truck> filteredTrucks;
+
+    protected override void OnInitialized()
+    {
+        filteredTrucks = allTrucks;
+    }
+
+    private void HandleSearchChanged(string searchText)
+    {
+        Console.WriteLine($"HandleSearchChanged called with searchText: {searchText}"); // Debugging line
+        this.searchText = searchText;
+        FilterResults();
+    }
+
+    private void FilterResults()
+    {
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            filteredTrucks = allTrucks
+                .Where(truck => truck.TruckId.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+        else
+        {
+            filteredTrucks = allTrucks;
+        }
+    }
+
+    public class Truck
+    {
+        public string TruckId { get; set; }
+        public string LicensePlate { get; set; }
+        public int Capacity { get; set; }
+        public List<TruckCard.RouteStop> Route { get; set; }
+    }
+}

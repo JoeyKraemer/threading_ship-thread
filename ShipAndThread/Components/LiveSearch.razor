@@ -1,40 +1,43 @@
 ﻿@code {
     private string searchText = "";
-    private List<string> allItems = new() { "Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grapes" };
-    private List<string> filteredItems = new();
+    
+    [Parameter] public EventCallback<string> OnSearchChanged { get; set; }
+    [Parameter] public List<string> Items { get; set; } = new();
+    [Parameter] public List<string> FilteredItems { get; set; } = new();
 
-    private void OnSearchChanged(ChangeEventArgs e)
+    // Internal handler for oninput event
+    private void OnSearchChangedInternal(ChangeEventArgs e)
     {
         searchText = e.Value?.ToString() ?? "";
         FilterResults();
-    }
-    
-    private void PerformSearch()
-    {
-        FilterResults();
+        // Propagate the updated search text to the parent component
+        OnSearchChanged.InvokeAsync(searchText);
     }
 
+    // Perform filtering based on the search text
     private void FilterResults()
     {
         if (!string.IsNullOrWhiteSpace(searchText))
         {
-            filteredItems = allItems
+            FilteredItems = Items
                 .Where(item => item.Contains(searchText, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
         else
         {
-            filteredItems.Clear();
+            // If no search text, clear the filtered items
+            FilteredItems.Clear();
         }
     }
 }
 
 <div>
-    <input class="search-bar" type="text" @bind="searchText" @bind:event="oninput" />
-    <button class="search-button" @onclick="PerformSearch">Search</button>
+    <!-- Live search input field, binding to searchText with oninput event -->
+    <input class="search-bar" type="text" @bind="searchText" @bind:event="oninput" placeholder="Search..." />
     
-    <ul class="search-results" style="display: @(filteredItems.Any() ? "block" : "none");">
-        @foreach (var item in filteredItems)
+    <!-- Conditionally display the filtered items if any are found -->
+    <ul class="search-results" style="display: @(FilteredItems.Any() ? "block" : "none");">
+        @foreach (var item in FilteredItems)
         {
             <li>@item</li>
         }

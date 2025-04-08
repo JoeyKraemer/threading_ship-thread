@@ -10,9 +10,17 @@
     
     private void ToggleExpand()
     {
-        Console.WriteLine("Button clicked!");
         isExpanded = !isExpanded;
         StateHasChanged();
+    }
+
+    public class RouteStop
+    {
+        public int StopNumber { get; set; }
+        public string Timestamp { get; set; } = "";
+        public string Coordinates { get; set; } = "";
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }
 
@@ -53,14 +61,3 @@
         }
     </div>
 </div>
-
-@code {
-    public class RouteStop
-    {
-        public int StopNumber { get; set; }
-        public string Timestamp { get; set; } = "";
-        public string Coordinates { get; set; } = "";
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-    }
-}

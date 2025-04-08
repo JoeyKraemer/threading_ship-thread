@@ -2,23 +2,87 @@
 <PageTitle>Cargo Management</PageTitle>
 
 <div class="search">
-    <LiveSearch />
+    <!-- Using LiveSearch with OnSearchChanged just like in TruckManagement -->
+    <LiveSearch OnSearchChanged="HandleSearchChanged" />
 </div>
 
-<CargoCard 
-    CargoId="12345"
-    Status="On Route"
-    Destination="52°20'39 N 4°58'19 E"
-/>
+@if (filteredCargo.Any())
+{
+    @foreach (var cargo in filteredCargo)
+    {
+        <CargoCard CargoId="@cargo.CargoId"
+                   Status="@cargo.Status"
+                   Destination="@cargo.Destination" />
+    }
+}
+else
+{
+    <p>No cargo found matching the search criteria.</p>
+}
 
-<CargoCard 
-    CargoId="12345"
-    Status="On Route"
-    Destination="52°20'39 N 4°58'19 E"
-/>
+@code {
+    private string searchText = "";
+    
+    // Sample cargo data
+    private List<Cargo> allCargo = new()
+    {
+        new Cargo { CargoId = "12345", Status = "On Route", Destination = "52°20'39\"N 4°58'19\"E" },
+        new Cargo { CargoId = "45678", Status = "In Transit", Destination = "51°28'38\"N 0°00'05\"W" },
+        new Cargo { CargoId = "78901", Status = "Delivered", Destination = "48°51'24\"N 2°17'40\"E" },
+        new Cargo { CargoId = "10145", Status = "In Transit", Destination = "35°41'22\"N 139°41'30\"E" },
+        new Cargo { CargoId = "20278", Status = "On Route", Destination = "52°30'10\"N 13°22'45\"E" },
+    };
 
-<CargoCard 
-    CargoId="12345"
-    Status="On Route"
-    Destination="52°20'39 N 4°58'19 E"
-/>
+    private List<Cargo> filteredCargo;
+
+    // Initialize and populate the filteredCargo list
+    protected override void OnInitialized()
+    {
+        filteredCargo = allCargo; // Initially, show all cargo items
+        Console.WriteLine("OnInitialized: All cargo loaded."); // Debugging line
+    }
+
+    // Handle search change event and filter the results
+    private void HandleSearchChanged(string searchText)
+    {
+        Console.WriteLine($"HandleSearchChanged called with searchText: {searchText}"); // Debugging line
+        this.searchText = searchText;
+        FilterResults();
+    }
+
+    // Filter cargo list based on the search text
+    private void FilterResults()
+    {
+        Console.WriteLine($"FilterResults called with searchText: {searchText}"); // Debugging line
+
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            // Debugging: Print allCargo to check its content
+            Console.WriteLine("Filtering cargo items...");
+            foreach (var cargo in allCargo)
+            {
+                Console.WriteLine($"CargoId: {cargo.CargoId}, Status: {cargo.Status}, Destination: {cargo.Destination}");
+            }
+
+            // Filter cargo by CargoId matching the search text
+            filteredCargo = allCargo
+                .Where(cargo => cargo.CargoId.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            Console.WriteLine($"Filtered cargo count: {filteredCargo.Count}"); // Debugging line
+        }
+        else
+        {
+            // If no search text, show all cargo items
+            Console.WriteLine("No search text, showing all cargo."); // Debugging line
+            filteredCargo = allCargo;
+        }
+    }
+
+    // Cargo model class
+    public class Cargo
+    {
+        public string CargoId { get; set; }
+        public string Status { get; set; }
+        public string Destination { get; set; }
+    }
+}
