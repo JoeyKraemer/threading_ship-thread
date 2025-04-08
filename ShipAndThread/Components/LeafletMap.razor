@@ -7,14 +7,37 @@
     [Parameter] public double Latitude { get; set; } = 52.3676;
     [Parameter] public double Longitude { get; set; } = 4.9041;
     [Parameter] public int Zoom { get; set; } = 12;
+    [Parameter] public List<TruckMarker> Trucks { get; set; } = new();
 
     private string MapId = $"map-{Guid.NewGuid()}";
+    private bool _mapInitialized = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             await JS.InvokeVoidAsync("initMap", MapId, Latitude, Longitude, Zoom);
+            _mapInitialized = true;
         }
+
+        if (_mapInitialized && Trucks != null && Trucks.Count > 0)
+        {
+            await JS.InvokeVoidAsync("addTruckMarkers", MapId, Trucks);
+        }
+    }
+    
+    private string GetColorFromTruckId(string truckId)
+    {
+        var colors = new[] { "red", "blue", "green", "orange", "purple", "pink", "yellow", "brown", "teal" };
+        int hash = Math.Abs(truckId.GetHashCode());
+        return colors[hash % colors.Length];
+    }
+    
+    public class TruckMarker
+    {
+        public string TruckId { get; set; } = "";
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public string Color { get; set; } = "";
     }
 }
