@@ -86,7 +86,7 @@ namespace ShipAndThread.BlackBox
                 // Generate a random interval between 2000ms (2 seconds) and 12000ms (12 seconds)
                 int randomIntervalMs = random.Next(2000, 12001);
                 await DriveToDestination(truck, destination, randomIntervalMs);
-                DropOffCargo(truck, destination);
+                await DropOffCargo(truck, destination);
             }
         }
 
@@ -144,7 +144,7 @@ namespace ShipAndThread.BlackBox
         /// Removes the cargo from the truck's cargo list and prints information
         /// about the drop-off.
         /// </summary>
-        private void DropOffCargo(Truck truck, (double Latitude, double Longitude) destination)
+        private async Task DropOffCargo(Truck truck, (double Latitude, double Longitude) destination)
         {
             if (truck.CargoList.Any())
             {
@@ -155,7 +155,19 @@ namespace ShipAndThread.BlackBox
 
                 // Print information about the truck and cargo
                 Console.WriteLine($"Truck {truck.TruckId} dropped off cargo at {destination.Latitude}, {destination.Longitude} with status {cargo.Status}");
+                
+                // Broadcast updated active cargo list
+                await SendActiveCargoUpdateAsync();
             }
+        }
+        
+        private async Task SendActiveCargoUpdateAsync()
+        {
+            var activeCargo = await _context.Cargoes
+                .Where(c => c.Status != CargoStatus.Delivered)
+                .ToListAsync();
+
+            await _hubContext.Clients.All.SendAsync("ReceiveCargoUpdate", activeCargo);
         }
         
         /// <summary>

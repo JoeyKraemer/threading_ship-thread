@@ -1,5 +1,7 @@
 ﻿@page "/truckManagement"
 @using ShipAndThread.Domain.Entities
+@using ShipAndThread.Application.Services
+@inject TruckService TruckService
 @rendermode InteractiveServer
 
 <PageTitle>Truck Management</PageTitle>
@@ -16,6 +18,8 @@
                    TruckId="@truck.TruckId"
                    LicensePlate="@truck.LicensePlate"
                    Capacity="@truck.Capacity"
+                   LocationHistory="@truck.LocationHistory"
+                   CargoList="@truck.CargoList.ToList()"
                   />
     }
 }
@@ -26,26 +30,22 @@ else
 
 @code {
     private string searchText = "";
-    private List<Truck> allTrucks = new()
-    {
-       new Truck
-        {
-        TruckId = 88245,
-        LicensePlate = "AB 123 CD",
-        Capacity = 100
-        },
-    };
+    private List<Truck> allTrucks = new();
+    private List<Truck> filteredTrucks = new();
 
-    private List<Truck> filteredTrucks;
-
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
-        filteredTrucks = allTrucks;
+        await LoadTrucksAsync();
+    }
+    
+    private async Task LoadTrucksAsync()
+    {
+        allTrucks = await TruckService.GetAllTrucksAsync();
+        filteredTrucks = new List<Truck>(allTrucks);
     }
 
     private void HandleSearchChanged(string searchText)
     {
-        Console.WriteLine($"HandleSearchChanged called with searchText: {searchText}"); // Debugging line
         this.searchText = searchText;
         FilterResults();
     }
