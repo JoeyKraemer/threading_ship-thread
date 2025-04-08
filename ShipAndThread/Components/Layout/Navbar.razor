@@ -1,0 +1,40 @@
+@inject IJSRuntime JSRuntime
+
+<div class="sidebar @(isCollapsed ? "collapsed" : "")">
+    <button class="toggle-btn" @onclick="ToggleSidebar" style="@(isMobile ? "display:block;" : "display:none;")">☰</button>
+    <a class="logo" href="">
+        <img src="images/logo-yellow-bg.png" alt="logo" />
+    </a>
+
+    <nav class="@(isMobile && isCollapsed ? "hidden" : "")">
+        <div class="nav-item">
+            <NavLink class="nav-link" href="truckManagement">
+                <img class="nav-icon" src="images/truckIcon.png" alt="Truck" /> Truck Management
+            </NavLink>
+        </div>
+        <div class="nav-item">
+            <NavLink class="nav-link" href="cargoManagement">
+                <img class="nav-icon" src="images/cargoIcon.png" alt="Truck" /> Cargo Management
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+@code {
+    private bool isCollapsed = false;
+    private bool isMobile = false;
+
+    private void ToggleSidebar()
+    {
+        isCollapsed = !isCollapsed;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            //isMobile = window.innerWidth <= 768;
+            StateHasChanged();
+        }
+    }
+}

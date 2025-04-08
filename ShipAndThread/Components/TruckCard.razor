@@ -1,0 +1,65 @@
+﻿@rendermode InteractiveServer
+
+@code {
+    [Parameter] public int TruckId { get; set; } = 0000;
+    [Parameter] public string LicensePlate { get; set; } = "Unknown Plate";
+    [Parameter] public int? Capacity { get; set; } = 0;
+    
+
+    private bool isExpanded = false;
+    
+    private void ToggleExpand()
+    {
+        isExpanded = !isExpanded;
+        StateHasChanged();
+    }
+
+    //replace with location_history
+    public class RouteStop
+    {
+        public int StopNumber { get; set; }
+        public string Timestamp { get; set; } = "";
+        public string Coordinates { get; set; } = "";
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+    }
+}
+
+<div class="truck-card">
+    <div class="truck-closed">
+        <div class="truck-info">
+            <img src="images/truckImage.png" alt="Truck Image" class="truck-image"/>
+            <div class="truck-title">
+                <h2>@TruckId / @LicensePlate</h2>
+                <p>Truck capacity: @Capacity</p>
+            </div>
+        </div>
+        <button @onclick="ToggleExpand" class="expand-btn">
+            @(isExpanded ? "▲" : "▼")
+        </button>
+    </div>
+    <div class="truck-open">
+        @if (isExpanded)
+        {
+            <div class="truck-details @(isExpanded ? "expanded" : "")">
+                <div class="map-card">
+                    <LeafletMap Latitude="52.3800" Longitude="4.9000" Zoom="11" RouteStops="@Route">
+                    </LeafletMap>
+                </div>
+                <div class="route-info">
+                    <h4>ROUTE</h4>
+                    <ul>
+                        // entry in location_history
+                        @foreach (var stop in Route)
+                        {
+                            <li>
+                                Stop @stop.StopNumber - @stop.Timestamp <br/>
+                                @stop.Coordinates
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+</div>

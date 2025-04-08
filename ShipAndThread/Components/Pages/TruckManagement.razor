@@ -1,0 +1,66 @@
+﻿@page "/truckManagement"
+@using ShipAndThread.Domain.Entities
+@rendermode InteractiveServer
+
+<PageTitle>Truck Management</PageTitle>
+
+<div class="search">
+    <LiveSearch OnSearchChanged="HandleSearchChanged" />
+</div>
+
+@if (filteredTrucks.Any())
+{
+    @foreach (var truck in filteredTrucks)
+    {
+        <TruckCard @key="@truck.TruckId"
+                   TruckId="@truck.TruckId"
+                   LicensePlate="@truck.LicensePlate"
+                   Capacity="@truck.Capacity"
+                  />
+    }
+}
+else
+{
+    <p>No trucks found matching the search criteria.</p>
+}
+
+@code {
+    private string searchText = "";
+    private List<Truck> allTrucks = new()
+    {
+       new Truck
+        {
+        TruckId = 88245,
+        LicensePlate = "AB 123 CD",
+        Capacity = 100
+        },
+    };
+
+    private List<Truck> filteredTrucks;
+
+    protected override void OnInitialized()
+    {
+        filteredTrucks = allTrucks;
+    }
+
+    private void HandleSearchChanged(string searchText)
+    {
+        Console.WriteLine($"HandleSearchChanged called with searchText: {searchText}"); // Debugging line
+        this.searchText = searchText;
+        FilterResults();
+    }
+
+    private void FilterResults()
+    {
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            filteredTrucks = allTrucks
+                .Where(truck => truck.TruckId.ToString().Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+        else
+        {
+            filteredTrucks = allTrucks;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+﻿@code {
+    private string searchText = "";
+    
+    [Parameter] public EventCallback<string> OnSearchChanged { get; set; }
+
+    // The event handler for the input’s oninput event
+    private void OnSearchChangedInternal(ChangeEventArgs e)
+    {
+        searchText = e.Value?.ToString() ?? "";
+        // Directly propagate the updated search text to the parent component
+        OnSearchChanged.InvokeAsync(searchText);
+    }
+}
+
+<div>
+    <!-- Updated input: remove two-way binding, use a standard value binding and explicit oninput event -->
+    <input class="search-bar" type="text" value="@searchText" @oninput="OnSearchChangedInternal" placeholder="Search..." />
+</div>

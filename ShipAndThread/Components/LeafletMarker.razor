@@ -1,0 +1,13 @@
+﻿@code {
+    [Parameter] public double Latitude { get; set; }
+    [Parameter] public double Longitude { get; set; }
+    [Parameter] public string PopupText { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // You can use this to add the marker to the map using your Leaflet map library
+        // This will depend on how your LeafletMap is implemented
+    }
+}
+
+<div class="leaflet-marker" style="position: absolute; top: @Latitude%; left: @Longitude%;"></div>
