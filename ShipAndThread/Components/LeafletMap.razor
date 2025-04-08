@@ -8,6 +8,7 @@
     [Parameter] public double Longitude { get; set; } = 4.9041;
     [Parameter] public int Zoom { get; set; } = 12;
     [Parameter] public List<TruckMarker> Trucks { get; set; } = new();
+    [Parameter] public List<TruckCard.RouteStop> RouteStops { get; set; } = new();
 
     private string MapId = $"map-{Guid.NewGuid()}";
     private bool _mapInitialized = false;
@@ -24,6 +25,12 @@
         {
             await JS.InvokeVoidAsync("addTruckMarkers", MapId, Trucks);
         }
+        
+        if (_mapInitialized && RouteStops != null && RouteStops.Count > 0)
+        {
+            // Call the specific JavaScript function to add route stop markers and polyline
+            await JS.InvokeVoidAsync("addRouteStopMarkers", MapId, ValidRouteStops(RouteStops));
+        }
     }
     
     private string GetColorFromTruckId(string truckId)
@@ -31,6 +38,19 @@
         var colors = new[] { "red", "blue", "green", "orange", "purple", "pink", "yellow", "brown", "teal" };
         int hash = Math.Abs(truckId.GetHashCode());
         return colors[hash % colors.Length];
+    }
+    
+    private List<TruckCard.RouteStop> ValidRouteStops(List<TruckCard.RouteStop> routeStops)
+    {
+        var validStops = routeStops.Where(stop => stop.Latitude != 0 && stop.Longitude != 0).ToList();
+
+        // Log invalid stops for debugging
+        foreach (var stop in routeStops.Where(stop => stop.Latitude == 0 || stop.Longitude == 0))
+        {
+            Console.WriteLine($"Invalid Stop: {stop.StopNumber} - {stop.Latitude}, {stop.Longitude}");
+        }
+
+        return validStops;
     }
     
     public class TruckMarker

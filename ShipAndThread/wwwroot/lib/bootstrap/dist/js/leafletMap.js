@@ -18,6 +18,35 @@ window.initMap = (mapId, latitude, longitude, zoom) => {
         setTimeout(() => map.invalidateSize(), 200);
     });
 
+    window.addRouteStopMarkers = (mapId, routeStops) => {
+        const mapObj = window.maps[mapId];
+        if (!mapObj) return;
+
+        mapObj.markers.forEach(marker => mapObj.map.removeLayer(marker));
+        mapObj.markers = [];
+
+        let latLngs = [];
+
+        routeStops.forEach(stop => {
+            if (stop.latitude && stop.longitude) {
+                // Create a marker for each stop
+                const marker = L.marker([stop.latitude, stop.longitude])
+                    .addTo(mapObj.map)
+                    .bindPopup(`Stop ${stop.stopNumber} - ${stop.timestamp}`);
+
+                mapObj.markers.push(marker);
+
+                // Add this stop's coordinates to the latLngs array
+                latLngs.push([stop.latitude, stop.longitude]);
+            }
+        });
+
+        // Add polyline if there are multiple stops
+        if (latLngs.length > 1) {
+            L.polyline(latLngs, { color: 'blue', weight: 4 }).addTo(mapObj.map);
+        }
+    }
+    
     window.addTruckMarkers = (mapId, truckList) => {
         const mapObj = window.maps[mapId];
         if (!mapObj) return;
