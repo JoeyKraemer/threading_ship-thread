@@ -43,20 +43,20 @@
         {
             <div class="truck-details @(isExpanded ? "expanded" : "")">
                 <div class="map-card">
-                    <LeafletMap Latitude="52.3800" Longitude="4.9000" Zoom="11" RouteStops="@Route">
+                    <LeafletMap Latitude="52.3800" Longitude="4.9000" Zoom="11">
                     </LeafletMap>
                 </div>
                 <div class="route-info">
                     <h4>ROUTE</h4>
                     <ul>
                         // entry in location_history
-                        @foreach (var stop in Route)
+                        @*@foreach (var stop in Route)
                         {
                             <li>
                                 Stop @stop.StopNumber - @stop.Timestamp <br/>
                                 @stop.Coordinates
                             </li>
-                        }
+                        }*@
                     </ul>
                 </div>
             </div>

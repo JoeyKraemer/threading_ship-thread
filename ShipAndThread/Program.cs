@@ -25,6 +25,8 @@ builder.Services.AddRazorComponents()
 // Register TruckService for DI
 builder.Services.AddScoped<TruckService>();
 
+builder.Services.AddScoped<ITruckDataSimulationService, TruckDataSimulationService>();
+
 builder.Services.AddSignalR();
 
 var app = builder.Build();
@@ -53,26 +55,4 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-// Start the truck data generation in a background task
-_ = Task.Run(async () => 
-{
-    try
-    {
-        await RunTruckDataGeneration(app.Services);
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error in truck data generation: {ex.Message}");
-    }
-});
-
 app.Run();
-
-static async Task RunTruckDataGeneration(IServiceProvider services)
-{
-    using var scope = services.CreateScope();
-    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    var hubContext = scope.ServiceProvider.GetRequiredService<IHubContext<CommunicationHub>>();
-    
-    await AsyncDataGeneration.Go(context, hubContext);
-}

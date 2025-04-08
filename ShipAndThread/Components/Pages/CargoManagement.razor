@@ -14,7 +14,7 @@
     {
         <CargoCard CargoId="@cargo.Id"
                    Status="@cargo.Status"
-                   TruckLicense="@cargo.Truck.LicensePlate" />
+                   TruckLicense="@cargo.Truck?.LicensePlate" />
     }
 }
 else
@@ -26,14 +26,7 @@ else
     private string searchText = "";
     
     // Sample cargo data
-    private List<Cargo> allCargo = new()
-    {
-        new Cargo { CargoId = "12345", Status = "On Route", Destination = "52°20'39\"N 4°58'19\"E" },
-        new Cargo { CargoId = "45678", Status = "In Transit", Destination = "51°28'38\"N 0°00'05\"W" },
-        new Cargo { CargoId = "78901", Status = "Delivered", Destination = "48°51'24\"N 2°17'40\"E" },
-        new Cargo { CargoId = "10145", Status = "In Transit", Destination = "35°41'22\"N 139°41'30\"E" },
-        new Cargo { CargoId = "20278", Status = "On Route", Destination = "52°30'10\"N 13°22'45\"E" },
-    };
+    private List<Cargo> allCargo = new();
 
     private List<Cargo> filteredCargo;
 
@@ -78,4 +71,5 @@ else
             Console.WriteLine("No search text, showing all cargo."); // Debugging line
             filteredCargo = allCargo;
         }
+    }
 }
