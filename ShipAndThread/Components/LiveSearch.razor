@@ -2,44 +2,17 @@
     private string searchText = "";
     
     [Parameter] public EventCallback<string> OnSearchChanged { get; set; }
-    [Parameter] public List<string> Items { get; set; } = new();
-    [Parameter] public List<string> FilteredItems { get; set; } = new();
 
-    // Internal handler for oninput event
+    // The event handler for the input’s oninput event
     private void OnSearchChangedInternal(ChangeEventArgs e)
     {
         searchText = e.Value?.ToString() ?? "";
-        FilterResults();
-        // Propagate the updated search text to the parent component
+        // Directly propagate the updated search text to the parent component
         OnSearchChanged.InvokeAsync(searchText);
-    }
-
-    // Perform filtering based on the search text
-    private void FilterResults()
-    {
-        if (!string.IsNullOrWhiteSpace(searchText))
-        {
-            FilteredItems = Items
-                .Where(item => item.Contains(searchText, StringComparison.OrdinalIgnoreCase))
-                .ToList();
-        }
-        else
-        {
-            // If no search text, clear the filtered items
-            FilteredItems.Clear();
-        }
     }
 }
 
 <div>
-    <!-- Live search input field, binding to searchText with oninput event -->
-    <input class="search-bar" type="text" @bind="searchText" @bind:event="oninput" placeholder="Search..." />
-    
-    <!-- Conditionally display the filtered items if any are found -->
-    <ul class="search-results" style="display: @(FilteredItems.Any() ? "block" : "none");">
-        @foreach (var item in FilteredItems)
-        {
-            <li>@item</li>
-        }
-    </ul>
+    <!-- Updated input: remove two-way binding, use a standard value binding and explicit oninput event -->
+    <input class="search-bar" type="text" value="@searchText" @oninput="OnSearchChangedInternal" placeholder="Search..." />
 </div>
