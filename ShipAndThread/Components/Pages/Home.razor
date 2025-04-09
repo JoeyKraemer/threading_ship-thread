@@ -14,21 +14,17 @@
     <LeafletMap Latitude="52.3800" Longitude="4.9000" Zoom="11" Trucks="@truckMarkers" />
 </div>
 
-<button @onclick="StartSimulation">Start Simulation</button>
+<button class="start-simulation-button" @onclick="StartSimulation">Start Simulation</button>
 
 <div class="log">
     <h2>Activity Log</h2>
-    <ul>
-        @foreach (var entry in activityLog)
-        {
-            <li>
-                <p>@entry.Time.ToString("HH:mm:ss")</p>
-                <p>
-                    @((MarkupString)entry.Message)
-                </p>
-            </li>
-        }
-    </ul>
+    @foreach (var entry in activityLog)
+    {
+        <div class="activity-entry" style="border-left: 5px solid @entry.Color">
+            <div class="activity-time">@entry.Time.ToString("HH:mm:ss")</div>
+            <div class="activity-message">@((MarkupString)entry.Message)</div>
+        </div>
+    }
 </div>
 
 @code {
