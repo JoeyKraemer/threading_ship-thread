@@ -22,9 +22,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// Register TruckService for DI
-builder.Services.AddScoped<TruckService>();
-builder.Services.AddScoped<CargoService>();
+// Register services for DI with Singleton lifetime to match DbContext
+builder.Services.AddSingleton<TruckService>();
+builder.Services.AddSingleton<CargoService>();
+builder.Services.AddSingleton<LocationHistoryService>();
 
 builder.Services.AddScoped<ITruckDataSimulationService, TruckDataSimulationService>();
 

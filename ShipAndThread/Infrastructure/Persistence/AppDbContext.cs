@@ -34,9 +34,10 @@ public class AppDbContext : DbContext
             .OnDelete(DeleteBehavior.Cascade); // Cascade delete LocationHistory when Truck is deleted
 
         // Configure Truck -> Cargo (1-to-many relationship)
-        modelBuilder.Entity<Cargo>()
-            .HasOne<Truck>()
-            .WithMany(t => t.CargoList)
-            .HasForeignKey("TruckId");
+        modelBuilder.Entity<Truck>()
+            .HasMany(t => t.CargoList)
+            .WithOne(c => c.Truck)
+            .HasForeignKey(c => c.TruckId)
+            .OnDelete(DeleteBehavior.SetNull); // Don't cascade delete Cargo when Truck is deleted
     }
 }

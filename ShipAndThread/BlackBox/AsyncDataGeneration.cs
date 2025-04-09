@@ -5,16 +5,28 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using ShipAndThread.Infrastructure.Persistence;
 using ShipAndThread.Domain.Entities;
+using ShipAndThread.Application.Services;
 
 namespace ShipAndThread.BlackBox
 {
     public static class AsyncDataGeneration
     {
-        public static async Task Go(AppDbContext context, IHubContext<CommunicationHub> hubContext)
+        public static async Task Go(
+            AppDbContext context, 
+            IHubContext<CommunicationHub> hubContext,
+            TruckService truckService,
+            CargoService cargoService,
+            LocationHistoryService locationHistoryService)
         {
             // Create instances of required generators
             var dataGenerator = new DataGenerator();
-            var truckDataGenerator = new TruckDataGenerator(context, dataGenerator, hubContext);
+            var truckDataGenerator = new TruckDataGenerator(
+                context, 
+                dataGenerator, 
+                hubContext, 
+                truckService, 
+                cargoService, 
+                locationHistoryService);
             
             // Configuration for the simulation
             int truckCount = 5;     // Number of trucks to simulate
@@ -23,10 +35,10 @@ namespace ShipAndThread.BlackBox
             Console.WriteLine("Starting truck simulation...");
             
             // Clear the database before starting a new simulation
-            await ClearDatabaseAsync(context);
+            await ClearDatabaseAsync(truckService, cargoService, locationHistoryService);
             
             // Create sample trucks
-            await CreateSampleTrucksAsync(context, truckCount);
+            await CreateSampleTrucksAsync(truckService, truckCount);
             
             Console.WriteLine($"Simulating {truckCount} trucks with {cargoPerTruck} cargo items each");
             
@@ -37,36 +49,47 @@ namespace ShipAndThread.BlackBox
         }
         
         /// <summary>
-        /// Clears all data from the database
+        /// Clears all data from the database using service classes
         /// </summary>
-        private static async Task ClearDatabaseAsync(AppDbContext context)
+        private static async Task ClearDatabaseAsync(
+            TruckService truckService, 
+            CargoService cargoService, 
+            LocationHistoryService locationHistoryService)
         {
             Console.WriteLine("Clearing database...");
             
-            // Remove all location histories
-            context.LocationHistories.RemoveRange(await context.LocationHistories.ToListAsync());
+            // Get all location histories and remove them
+            var locationHistories = await locationHistoryService.GetAllLocationHistoriesAsync();
+            foreach (var history in locationHistories)
+            {
+                await locationHistoryService.DeleteLocationHistoryAsync(history.Id);
+            }
             
-            // Remove all cargoes
-            context.Cargoes.RemoveRange(await context.Cargoes.ToListAsync());
+            // Get all cargoes and remove them
+            var cargoes = await cargoService.GetAllCargoAsync();
+            foreach (var cargo in cargoes)
+            {
+                await cargoService.DeleteCargoAsync(cargo.Id);
+            }
             
-            // Remove all trucks
-            context.Trucks.RemoveRange(await context.Trucks.ToListAsync());
-            
-            // Save changes
-            await context.SaveChangesAsync();
+            // Get all trucks and remove them
+            var trucks = await truckService.GetAllTrucksAsync();
+            foreach (var truck in trucks)
+            {
+                await truckService.DeleteTruckAsync(truck.TruckId);
+            }
             
             Console.WriteLine("Database cleared successfully.");
         }
         
         /// <summary>
-        /// Creates sample trucks in the database
+        /// Creates sample trucks in the database using TruckService
         /// </summary>
-        private static async Task CreateSampleTrucksAsync(AppDbContext context, int count)
+        private static async Task CreateSampleTrucksAsync(TruckService truckService, int count)
         {
             Console.WriteLine($"Creating {count} sample trucks...");
             
             // Create sample trucks
-            var trucks = new List<Truck>();
             for (int i = 1; i <= count; i++)
             {
                 var truck = new Truck
@@ -76,12 +99,8 @@ namespace ShipAndThread.BlackBox
                     CargoList = new List<Cargo>()
                 };
                 
-                trucks.Add(truck);
+                await truckService.AddTruckAsync(truck);
             }
-            
-            // Add trucks to database
-            context.Trucks.AddRange(trucks);
-            await context.SaveChangesAsync();
             
             Console.WriteLine($"Created {count} sample trucks in the database.");
         }

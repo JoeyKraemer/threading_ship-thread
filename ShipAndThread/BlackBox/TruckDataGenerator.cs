@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ShipAndThread.Infrastructure.Persistence;
 using ShipAndThread.Domain.Entities;
 using ShipAndThread.Domain.Enums;
+using ShipAndThread.Application.Services;
 
 namespace ShipAndThread.BlackBox
 {
@@ -18,14 +19,26 @@ namespace ShipAndThread.BlackBox
         private readonly ArrayList _trucks;
         private readonly ArrayList _cargoes;
         private readonly IHubContext<CommunicationHub> _hubContext;
+        private readonly TruckService _truckService;
+        private readonly CargoService _cargoService;
+        private readonly LocationHistoryService _locationHistoryService;
 
-        public TruckDataGenerator(AppDbContext context, DataGenerator dataGenerator, IHubContext<CommunicationHub> hubContext)
+        public TruckDataGenerator(
+            AppDbContext context, 
+            DataGenerator dataGenerator, 
+            IHubContext<CommunicationHub> hubContext,
+            TruckService truckService,
+            CargoService cargoService,
+            LocationHistoryService locationHistoryService)
         {
             _context = context;
             _dataGenerator = dataGenerator;
             _hubContext = hubContext;
             _trucks = new ArrayList();
             _cargoes = new ArrayList();
+            _truckService = truckService;
+            _cargoService = cargoService;
+            _locationHistoryService = locationHistoryService;
         }
 
         /// <summary>
@@ -35,7 +48,7 @@ namespace ShipAndThread.BlackBox
         /// </summary>
         public async Task InitializeTrucksAsync(int truckCount)
         {
-            var trucks = await _context.Trucks.ToListAsync();
+            var trucks = await _truckService.GetAllTrucksAsync();
             if (trucks.Count > truckCount)
                 trucks = trucks.Take(truckCount).ToList();
 
@@ -63,12 +76,9 @@ namespace ShipAndThread.BlackBox
                 truck.CargoList.Add(cargo);
                 _cargoes.Add(cargo);
                 
-                // Add cargo to the database
-                _context.Cargoes.Add(cargo);
+                // Add cargo to the database using the service
+                await _cargoService.AddCargoAsync(cargo);
             }
-            
-            // Save all changes to the database
-            await _context.SaveChangesAsync();
         }
         
         /// <summary>
@@ -126,8 +136,8 @@ namespace ShipAndThread.BlackBox
                 Timestamp = _dataGenerator.GenerateTimestamp()
             };
 
-            _context.LocationHistories.Add(locationHistory);
-            await _context.SaveChangesAsync();
+            // Add location history using the service
+            await _locationHistoryService.AddLocationHistoryAsync(locationHistory);
             
             // Send the new location to all connected clients via SignalR
             await _hubContext.Clients.All.SendAsync("ReceiveLocationUpdate", new
@@ -141,16 +151,22 @@ namespace ShipAndThread.BlackBox
 
         /// <summary>
         /// Simulates dropping off a cargo item at the current destination.
-        /// Removes the cargo from the truck's cargo list and prints information
-        /// about the drop-off.
+        /// Updates the cargo status to Delivered but keeps it in the database.
         /// </summary>
         private async Task DropOffCargo(Truck truck, (double Latitude, double Longitude) destination)
         {
-            if (truck.CargoList.Any())
+            // Find the first cargo that is not already delivered
+            var cargo = truck.CargoList.FirstOrDefault(c => c.Status != CargoStatus.Delivered);
+            
+            if (cargo != null)
             {
-                var cargo = truck.CargoList.First();
-                truck.CargoList.Remove(cargo);
+                // Update cargo status instead of removing it
                 cargo.Status = CargoStatus.Delivered;
+                
+                // Update the cargo in the database using the service
+                await _cargoService.UpdateCargoAsync(cargo);
+                
+                // Remove from local tracking only, but keep in the truck's cargo list
                 _cargoes.Remove(cargo);
 
                 // Print information about the truck and cargo
@@ -163,11 +179,31 @@ namespace ShipAndThread.BlackBox
         
         private async Task SendActiveCargoUpdateAsync()
         {
-            var activeCargo = await _context.Cargoes
-                .Where(c => c.Status != CargoStatus.Delivered)
-                .ToListAsync();
+            // Get all cargo items, including delivered ones
+            var allCargo = await _cargoService.GetAllCargoAsync();
+            var cargoList = new List<object>();
 
-            await _hubContext.Clients.All.SendAsync("ReceiveCargoUpdate", activeCargo);
+            foreach (var cargo in allCargo)
+            {
+                // Create a simplified DTO without circular references
+                var cargoDto = new
+                {
+                    Id = cargo.Id,
+                    TruckId = cargo.TruckId,
+                    Status = cargo.Status,
+                    Truck = cargo.Truck != null ? new
+                    {
+                        TruckId = cargo.Truck.TruckId,
+                        LicensePlate = cargo.Truck.LicensePlate,
+                        Capacity = cargo.Truck.Capacity
+                        // Omit LocationHistory and CargoList to avoid circular references
+                    } : null
+                };
+                
+                cargoList.Add(cargoDto);
+            }
+
+            await _hubContext.Clients.All.SendAsync("ReceiveCargoUpdate", cargoList);
         }
         
         /// <summary>

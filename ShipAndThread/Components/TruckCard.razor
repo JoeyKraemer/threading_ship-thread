@@ -7,6 +7,29 @@
 @inject TruckService TruckService
 @using ShipAndThread.Components.Pages
 @inject IJSRuntime JS
+@using System.Text.Json
+
+<style>
+    .delivered-cargo {
+        color: #666;
+        text-decoration: line-through;
+        background-color: #f0f0f0;
+        opacity: 0.8;
+    }
+    
+    .active-cargo {
+        color: #000;
+        font-weight: bold;
+        background-color: #e6f7ff;
+    }
+    
+    .cargo-list li {
+        margin-bottom: 8px;
+        padding: 6px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+</style>
 
 @code {
     [Parameter] public int TruckId { get; set; }
@@ -31,11 +54,11 @@
     {
         if (LocationHistory == null)
         {
-            return [];
+            return new List<LeafletMap.TruckMarker>();
         }
 
-        return
-        [
+        return new List<LeafletMap.TruckMarker>
+        {
             new LeafletMap.TruckMarker
             {
                 TruckId = TruckId.ToString(),
@@ -43,7 +66,7 @@
                 Longitude = LocationHistory.Longitude,
                 Color = "yellow"
             }
-        ];
+        };
     }
     
     protected override async Task OnInitializedAsync()
@@ -74,13 +97,52 @@
             }
         });
 
-        _hubConnection.On<List<Cargo>>("ReceiveCargoUpdate", cargoList =>
+        _hubConnection.On<List<object>>("ReceiveCargoUpdate", cargoObjects =>
         {
-            var activeCargo = cargoList
-                .Where(c => c.TruckId == TruckId && c.Status != CargoStatus.Delivered)
-                .ToList();
-
-            CargoList = activeCargo;
+            var cargoList = new List<Cargo>();
+            
+            foreach (var obj in cargoObjects)
+            {
+                // Convert the dynamic object to JSON and then to a Cargo object
+                var jsonElement = (JsonElement)obj;
+                
+                int cargoTruckId = jsonElement.GetProperty("TruckId").GetInt32();
+                
+                // Only process cargo for this truck
+                if (cargoTruckId == TruckId)
+                {
+                    var cargoStatus = (CargoStatus)jsonElement.GetProperty("Status").GetInt32();
+                    
+                    var cargo = new Cargo
+                    {
+                        Id = jsonElement.GetProperty("Id").GetInt32(),
+                        TruckId = cargoTruckId,
+                        Status = cargoStatus
+                    };
+                    
+                    // Check if Truck property exists and is not null
+                    if (jsonElement.TryGetProperty("Truck", out JsonElement truckElement) && 
+                        truckElement.ValueKind != JsonValueKind.Null)
+                    {
+                        cargo.Truck = new Truck
+                        {
+                            TruckId = truckElement.GetProperty("TruckId").GetInt32(),
+                            LicensePlate = truckElement.TryGetProperty("LicensePlate", out var lpElement) && 
+                                          lpElement.ValueKind != JsonValueKind.Null ? 
+                                          lpElement.GetString() : null,
+                            Capacity = truckElement.TryGetProperty("Capacity", out var capElement) && 
+                                      capElement.ValueKind != JsonValueKind.Null ? 
+                                      capElement.GetInt32() : null
+                        };
+                    }
+                    
+                    cargoList.Add(cargo);
+                }
+            }
+            
+            // Update the main cargo list
+            CargoList = cargoList;
+            
             InvokeAsync(StateHasChanged);
         });
 
@@ -124,13 +186,13 @@
                 </div>
 
                 <div class="route-info">
-                    <h4>ACTIVE CARGO</h4>
-                    @if (CargoList.Any(c => c.Status != CargoStatus.Delivered))
+                    <h4>CARGO LIST</h4>
+                    @if (CargoList.Any())
                     {
-                        <ul>
-                            @foreach (var cargo in CargoList.Where(c => c.Status != CargoStatus.Delivered))
+                        <ul class="cargo-list">
+                            @foreach (var cargo in CargoList.OrderBy(c => c.Id))
                             {
-                                <li>
+                                <li class="@(cargo.Status == CargoStatus.Delivered ? "delivered-cargo" : "active-cargo")">
                                     <strong>Cargo ID:</strong> @cargo.Id <br />
                                     <strong>Status:</strong> @cargo.Status
                                 </li>
@@ -139,7 +201,7 @@
                     }
                     else
                     {
-                        <p>No active cargo.</p>
+                        <p>No cargo assigned to this truck.</p>
                     }
                 </div>
 
