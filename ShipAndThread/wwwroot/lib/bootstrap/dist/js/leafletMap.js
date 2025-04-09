@@ -68,4 +68,11 @@ window.initMap = (mapId, latitude, longitude, zoom) => {
             mapObj.markers.push(marker);
         });
     }
+
+    window.centerMap = (mapId, lat, lng) => {
+        const mapObj = window.maps[mapId];
+        if (mapObj && mapObj.map) {
+            mapObj.map.setView([lat, lng], mapObj.map.getZoom());
+        }
+    }
 }

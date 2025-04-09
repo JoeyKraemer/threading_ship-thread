@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using ShipAndThread.Infrastructure.Persistence;
 using ShipAndThread.Domain.Entities;
@@ -9,11 +10,11 @@ namespace ShipAndThread.BlackBox
 {
     public static class AsyncDataGeneration
     {
-        public static async Task Go(AppDbContext context)
+        public static async Task Go(AppDbContext context, IHubContext<CommunicationHub> hubContext)
         {
             // Create instances of required generators
             var dataGenerator = new DataGenerator();
-            var truckDataGenerator = new TruckDataGenerator(context, dataGenerator);
+            var truckDataGenerator = new TruckDataGenerator(context, dataGenerator, hubContext);
             
             // Configuration for the simulation
             int truckCount = 5;     // Number of trucks to simulate

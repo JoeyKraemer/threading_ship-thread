@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using ShipAndThread.Infrastructure.Persistence;
 using ShipAndThread.Domain.Entities;
@@ -16,11 +17,13 @@ namespace ShipAndThread.BlackBox
         private readonly DataGenerator _dataGenerator;
         private readonly ArrayList _trucks;
         private readonly ArrayList _cargoes;
+        private readonly IHubContext<CommunicationHub> _hubContext;
 
-        public TruckDataGenerator(AppDbContext context, DataGenerator dataGenerator)
+        public TruckDataGenerator(AppDbContext context, DataGenerator dataGenerator, IHubContext<CommunicationHub> hubContext)
         {
             _context = context;
             _dataGenerator = dataGenerator;
+            _hubContext = hubContext;
             _trucks = new ArrayList();
             _cargoes = new ArrayList();
         }
@@ -83,7 +86,7 @@ namespace ShipAndThread.BlackBox
                 // Generate a random interval between 2000ms (2 seconds) and 12000ms (12 seconds)
                 int randomIntervalMs = random.Next(2000, 12001);
                 await DriveToDestination(truck, destination, randomIntervalMs);
-                DropOffCargo(truck, destination);
+                await DropOffCargo(truck, destination);
             }
         }
 
@@ -125,6 +128,15 @@ namespace ShipAndThread.BlackBox
 
             _context.LocationHistories.Add(locationHistory);
             await _context.SaveChangesAsync();
+            
+            // Send the new location to all connected clients via SignalR
+            await _hubContext.Clients.All.SendAsync("ReceiveLocationUpdate", new
+            {
+                truckId = truck.TruckId,
+                latitude = locationHistory.Latitude,
+                longitude = locationHistory.Longitude,
+                timestamp = locationHistory.Timestamp
+            });
         }
 
         /// <summary>
@@ -132,7 +144,7 @@ namespace ShipAndThread.BlackBox
         /// Removes the cargo from the truck's cargo list and prints information
         /// about the drop-off.
         /// </summary>
-        private void DropOffCargo(Truck truck, (double Latitude, double Longitude) destination)
+        private async Task DropOffCargo(Truck truck, (double Latitude, double Longitude) destination)
         {
             if (truck.CargoList.Any())
             {
@@ -143,7 +155,19 @@ namespace ShipAndThread.BlackBox
 
                 // Print information about the truck and cargo
                 Console.WriteLine($"Truck {truck.TruckId} dropped off cargo at {destination.Latitude}, {destination.Longitude} with status {cargo.Status}");
+                
+                // Broadcast updated active cargo list
+                await SendActiveCargoUpdateAsync();
             }
+        }
+        
+        private async Task SendActiveCargoUpdateAsync()
+        {
+            var activeCargo = await _context.Cargoes
+                .Where(c => c.Status != CargoStatus.Delivered)
+                .ToListAsync();
+
+            await _hubContext.Clients.All.SendAsync("ReceiveCargoUpdate", activeCargo);
         }
         
         /// <summary>

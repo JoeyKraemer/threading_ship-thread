@@ -1,65 +1,149 @@
 ﻿@rendermode InteractiveServer
+@using ShipAndThread.Domain.Entities
+@using ShipAndThread.Domain.Enums
+@inject NavigationManager Navigation
+@using Microsoft.AspNetCore.SignalR.Client
+@using ShipAndThread.Application.Services
+@inject TruckService TruckService
+@using ShipAndThread.Components.Pages
+@inject IJSRuntime JS
 
 @code {
-    [Parameter] public int TruckId { get; set; } = 0000;
+    [Parameter] public int TruckId { get; set; }
     [Parameter] public string LicensePlate { get; set; } = "Unknown Plate";
     [Parameter] public int? Capacity { get; set; } = 0;
+    [Parameter] public LocationHistory? LocationHistory { get; set; }
+    [Parameter] public List<Cargo> CargoList { get; set; } = new();
     
+    private HubConnection? _hubConnection;
+    private Truck? _truck;
+    private string MapId = $"map-{Guid.NewGuid()}";
 
-    private bool isExpanded = false;
-    
+    private bool _isExpanded = false;
+
     private void ToggleExpand()
     {
-        isExpanded = !isExpanded;
+        _isExpanded = !_isExpanded;
         StateHasChanged();
     }
-
-    //replace with location_history
-    public class RouteStop
+    
+    private List<LeafletMap.TruckMarker> GetSingleMarker()
     {
-        public int StopNumber { get; set; }
-        public string Timestamp { get; set; } = "";
-        public string Coordinates { get; set; } = "";
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        if (LocationHistory == null)
+        {
+            return [];
+        }
+
+        return
+        [
+            new LeafletMap.TruckMarker
+            {
+                TruckId = TruckId.ToString(),
+                Latitude = LocationHistory.Latitude,
+                Longitude = LocationHistory.Longitude,
+                Color = "yellow"
+            }
+        ];
+    }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        _truck = await TruckService.GetTruckByIdAsync(TruckId);
+        
+        _hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("/communicationHub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        _hubConnection.On<Home.TruckLocationUpdate>("ReceiveLocationUpdate", async update =>
+        {
+            if (update.TruckId == TruckId)
+            {
+                LocationHistory = new LocationHistory
+                {
+                    TruckId = update.TruckId,
+                    Truck = _truck,
+                    Latitude = update.Latitude,
+                    Longitude = update.Longitude,
+                    Timestamp = update.Timestamp
+                };
+                
+                await JS.InvokeVoidAsync("centerMap", MapId, update.Latitude, update.Longitude);
+
+                await InvokeAsync(StateHasChanged);
+            }
+        });
+
+        _hubConnection.On<List<Cargo>>("ReceiveCargoUpdate", cargoList =>
+        {
+            var activeCargo = cargoList
+                .Where(c => c.TruckId == TruckId && c.Status != CargoStatus.Delivered)
+                .ToList();
+
+            CargoList = activeCargo;
+            InvokeAsync(StateHasChanged);
+        });
+
+        await _hubConnection.StartAsync();
     }
 }
 
 <div class="truck-card">
     <div class="truck-closed">
         <div class="truck-info">
-            <img src="images/truckImage.png" alt="Truck Image" class="truck-image"/>
+            <img src="images/truckImage.png" alt="Truck Image" class="truck-image" />
             <div class="truck-title">
                 <h2>@TruckId / @LicensePlate</h2>
-                <p>Truck capacity: @Capacity</p>
             </div>
         </div>
         <button @onclick="ToggleExpand" class="expand-btn">
-            @(isExpanded ? "▲" : "▼")
+            @(_isExpanded ? "▲" : "▼")
         </button>
     </div>
-    <div class="truck-open">
-        @if (isExpanded)
-        {
-            <div class="truck-details @(isExpanded ? "expanded" : "")">
+
+    @if (_isExpanded)
+    {
+        <div class="truck-open">
+            <div class="truck-details expanded">
                 <div class="map-card">
-                    <LeafletMap Latitude="52.3800" Longitude="4.9000" Zoom="11" RouteStops="@Route">
-                    </LeafletMap>
+                    @if (LocationHistory != null)
+                    {
+                        <LeafletMap MapId="@MapId"
+                                    Latitude="@LocationHistory.Latitude"
+                                    Longitude="@LocationHistory.Longitude"
+                                    Zoom="12"
+                                    Trucks="@GetSingleMarker()" />
+                    }
+                    else
+                    {
+                        <LeafletMap MapId="@MapId"
+                                    Latitude="52.3800"
+                                    Longitude="4.9000"
+                                    Zoom="12" />
+                    }
                 </div>
+
                 <div class="route-info">
-                    <h4>ROUTE</h4>
-                    <ul>
-                        // entry in location_history
-                        @foreach (var stop in Route)
-                        {
-                            <li>
-                                Stop @stop.StopNumber - @stop.Timestamp <br/>
-                                @stop.Coordinates
-                            </li>
-                        }
-                    </ul>
+                    <h4>ACTIVE CARGO</h4>
+                    @if (CargoList.Any(c => c.Status != CargoStatus.Delivered))
+                    {
+                        <ul>
+                            @foreach (var cargo in CargoList.Where(c => c.Status != CargoStatus.Delivered))
+                            {
+                                <li>
+                                    <strong>Cargo ID:</strong> @cargo.Id <br />
+                                    <strong>Status:</strong> @cargo.Status
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>No active cargo.</p>
+                    }
                 </div>
+
             </div>
-        }
-    </div>
+        </div>
+    }
 </div>
