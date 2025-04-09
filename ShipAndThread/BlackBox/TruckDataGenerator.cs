@@ -89,11 +89,6 @@ namespace ShipAndThread.BlackBox
         /// </summary>
         public async Task SimulateTruckRouteAsync(Truck truck)
         {
-            using (var scope = _serviceProvider.CreateScope())
-            {
-                var truckService = scope.ServiceProvider.GetRequiredService<TruckService>();
-                var cargoService = scope.ServiceProvider.GetRequiredService<CargoService>();
-                var locationHistoryService = scope.ServiceProvider.GetRequiredService<LocationHistoryService>();
             var route = GenerateRoute(truck.CargoList.Count);
             var random = new Random();
 
@@ -101,9 +96,8 @@ namespace ShipAndThread.BlackBox
             {
                 // Generate a random interval between 1000ms (1seconds) and 3000ms (3 seconds)
                 int randomIntervalMs = random.Next(1000, 3001);
-                    await DriveToDestination(truck, destination, randomIntervalMs, locationHistoryService);
-                    await DropOffCargo(truck, destination, cargoService);
-                }
+                await DriveToDestination(truck, destination, randomIntervalMs);
+                await DropOffCargo(truck, destination);
             }
         }
 
@@ -131,8 +125,7 @@ namespace ShipAndThread.BlackBox
         private async Task DriveToDestination(
             Truck truck, 
             (double Latitude, double Longitude) destination, 
-            int interval,
-            LocationHistoryService locationHistoryService)
+            int interval)
         {
             await Task.Delay(interval);
 
@@ -146,8 +139,13 @@ namespace ShipAndThread.BlackBox
                 Timestamp = _dataGenerator.GenerateTimestamp()
             };
 
-            // Add location history using the service
-            await locationHistoryService.AddLocationHistoryAsync(locationHistory);
+            // Create a new scope for this database operation
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var locationHistoryService = scope.ServiceProvider.GetRequiredService<LocationHistoryService>();
+                // Add location history using the service
+                await locationHistoryService.AddLocationHistoryAsync(locationHistory);
+            }
             
             // Send the new location to all connected clients via SignalR
             await _hubContext.Clients.All.SendAsync("ReceiveLocationUpdate", new
@@ -165,8 +163,7 @@ namespace ShipAndThread.BlackBox
         /// </summary>
         private async Task DropOffCargo(
             Truck truck, 
-            (double Latitude, double Longitude) destination,
-            CargoService cargoService)
+            (double Latitude, double Longitude) destination)
         {
             // Find the first cargo that is not already delivered
             var cargo = truck.CargoList.FirstOrDefault(c => c.Status != CargoStatus.Delivered);
@@ -176,8 +173,13 @@ namespace ShipAndThread.BlackBox
                 // Update cargo status instead of removing it
                 cargo.Status = CargoStatus.Delivered;
                 
-                // Update the cargo in the database using the service
-                await cargoService.UpdateCargoAsync(cargo);
+                // Create a new scope for this database operation
+                using (var scope = _serviceProvider.CreateScope())
+                {
+                    var cargoService = scope.ServiceProvider.GetRequiredService<CargoService>();
+                    // Update the cargo in the database using the service
+                    await cargoService.UpdateCargoAsync(cargo);
+                }
                 
                 // Remove from local tracking only, but keep in the truck's cargo list
                 _cargoes.Remove(cargo);
@@ -195,32 +197,32 @@ namespace ShipAndThread.BlackBox
             using (var scope = _serviceProvider.CreateScope())
             {
                 var cargoService = scope.ServiceProvider.GetRequiredService<CargoService>();
-            // Get all cargo items, including delivered ones
+                // Get all cargo items, including delivered ones
                 var allCargo = await cargoService.GetAllCargoAsync();
-            var cargoList = new List<object>();
+                var cargoList = new List<object>();
 
-            foreach (var cargo in allCargo)
-            {
-                // Create a simplified DTO without circular references
-                var cargoDto = new
+                foreach (var cargo in allCargo)
                 {
-                    Id = cargo.Id,
-                    TruckId = cargo.TruckId,
-                    Status = cargo.Status,
-                    Truck = cargo.Truck != null ? new
+                    // Create a simplified DTO without circular references
+                    var cargoDto = new
                     {
-                        TruckId = cargo.Truck.TruckId,
-                        LicensePlate = cargo.Truck.LicensePlate,
-                        Capacity = cargo.Truck.Capacity
-                        // Omit LocationHistory and CargoList to avoid circular references
-                    } : null
-                };
+                        Id = cargo.Id,
+                        TruckId = cargo.TruckId,
+                        Status = cargo.Status,
+                        Truck = cargo.Truck != null ? new
+                        {
+                            TruckId = cargo.Truck.TruckId,
+                            LicensePlate = cargo.Truck.LicensePlate,
+                            Capacity = cargo.Truck.Capacity
+                            // Omit LocationHistory and CargoList to avoid circular references
+                        } : null
+                    };
                 
-                cargoList.Add(cargoDto);
-            }
+                    cargoList.Add(cargoDto);
+                }
 
-            await _hubContext.Clients.All.SendAsync("ReceiveCargoUpdate", cargoList);
-        }
+                await _hubContext.Clients.All.SendAsync("ReceiveCargoUpdate", cargoList);
+            }
         }
         
         /// <summary>
