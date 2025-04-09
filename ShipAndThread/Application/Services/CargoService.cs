@@ -1,5 +1,6 @@
 using ShipAndThread.Domain.Entities;
 using ShipAndThread.Infrastructure.Persistence;
+using ShipAndThread.Domain.Enums;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,14 @@ public class CargoService
     public async Task<List<Cargo>> GetAllCargoAsync()
     {
         return await _context.Cargoes.Include(c => c.Truck).ToListAsync();
+    }
+
+    public async Task<List<Cargo>> GetActiveCargoesAsync()
+    {
+        return await _context.Cargoes
+            .Where(c => c.Status != CargoStatus.Delivered)
+            .Include(c => c.Truck)
+            .ToListAsync();
     }
 
     public async Task<Cargo> GetCargoByIdAsync(int id)
