@@ -28,6 +28,12 @@ public class TruckDataSimulationService : ITruckDataSimulationService
         var cargoService = scope.ServiceProvider.GetRequiredService<CargoService>();
         var locationHistoryService = scope.ServiceProvider.GetRequiredService<LocationHistoryService>();
         
-        await AsyncDataGeneration.Go(context, hubContext, truckService, cargoService, locationHistoryService);
+        await AsyncDataGeneration.Go(
+            context, 
+            hubContext, 
+            truckService, 
+            cargoService, 
+            locationHistoryService,
+            _services);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ShipAndThread.Infrastructure.Persistence;
 using ShipAndThread.Domain.Entities;
 using ShipAndThread.Application.Services;
@@ -16,17 +17,15 @@ namespace ShipAndThread.BlackBox
             IHubContext<CommunicationHub> hubContext,
             TruckService truckService,
             CargoService cargoService,
-            LocationHistoryService locationHistoryService)
+            LocationHistoryService locationHistoryService,
+            IServiceProvider serviceProvider)
         {
             // Create instances of required generators
             var dataGenerator = new DataGenerator();
             var truckDataGenerator = new TruckDataGenerator(
-                context, 
+                serviceProvider,
                 dataGenerator, 
-                hubContext, 
-                truckService, 
-                cargoService, 
-                locationHistoryService);
+                hubContext);
             
             // Configuration for the simulation
             int truckCount = 5;     // Number of trucks to simulate

@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ShipAndThread.Infrastructure.Persistence;
 using ShipAndThread.Domain.Entities;
 using ShipAndThread.Domain.Enums;
@@ -14,31 +16,22 @@ namespace ShipAndThread.BlackBox
 {
     public class TruckDataGenerator
     {
-        private readonly AppDbContext _context;
+        private readonly IServiceProvider _serviceProvider;
         private readonly DataGenerator _dataGenerator;
         private readonly ArrayList _trucks;
         private readonly ArrayList _cargoes;
         private readonly IHubContext<CommunicationHub> _hubContext;
-        private readonly TruckService _truckService;
-        private readonly CargoService _cargoService;
-        private readonly LocationHistoryService _locationHistoryService;
 
         public TruckDataGenerator(
-            AppDbContext context, 
+            IServiceProvider serviceProvider, 
             DataGenerator dataGenerator, 
-            IHubContext<CommunicationHub> hubContext,
-            TruckService truckService,
-            CargoService cargoService,
-            LocationHistoryService locationHistoryService)
+            IHubContext<CommunicationHub> hubContext)
         {
-            _context = context;
+            _serviceProvider = serviceProvider;
             _dataGenerator = dataGenerator;
             _hubContext = hubContext;
             _trucks = new ArrayList();
             _cargoes = new ArrayList();
-            _truckService = truckService;
-            _cargoService = cargoService;
-            _locationHistoryService = locationHistoryService;
         }
 
         /// <summary>
@@ -48,7 +41,10 @@ namespace ShipAndThread.BlackBox
         /// </summary>
         public async Task InitializeTrucksAsync(int truckCount)
         {
-            var trucks = await _truckService.GetAllTrucksAsync();
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var truckService = scope.ServiceProvider.GetRequiredService<TruckService>();
+                var trucks = await truckService.GetAllTrucksAsync();
             if (trucks.Count > truckCount)
                 trucks = trucks.Take(truckCount).ToList();
 
@@ -57,6 +53,7 @@ namespace ShipAndThread.BlackBox
                 _trucks.Add(truck);
             }
         }
+        }
 
         /// <summary>
         /// Assigns a specified number of cargo items to a given truck.
@@ -64,8 +61,11 @@ namespace ShipAndThread.BlackBox
         /// </summary>
         public async Task AssignCargoToTruck(Truck truck, int cargoCount)
         {
-            for (int i = 0; i < cargoCount; i++)
+            using (var scope = _serviceProvider.CreateScope())
             {
+                var cargoService = scope.ServiceProvider.GetRequiredService<CargoService>();
+                for (int i = 0; i < cargoCount; i++)
+                {
                 var cargo = new Cargo
                 {
                     Id = _cargoes.Count + 1,
@@ -77,7 +77,8 @@ namespace ShipAndThread.BlackBox
                 _cargoes.Add(cargo);
                 
                 // Add cargo to the database using the service
-                await _cargoService.AddCargoAsync(cargo);
+                    await cargoService.AddCargoAsync(cargo);
+                }
             }
         }
         
@@ -88,15 +89,21 @@ namespace ShipAndThread.BlackBox
         /// </summary>
         public async Task SimulateTruckRouteAsync(Truck truck)
         {
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var truckService = scope.ServiceProvider.GetRequiredService<TruckService>();
+                var cargoService = scope.ServiceProvider.GetRequiredService<CargoService>();
+                var locationHistoryService = scope.ServiceProvider.GetRequiredService<LocationHistoryService>();
             var route = GenerateRoute(truck.CargoList.Count);
             var random = new Random();
 
             foreach (var destination in route)
             {
-                // Generate a random interval between 2000ms (2 seconds) and 12000ms (12 seconds)
-                int randomIntervalMs = random.Next(2000, 12001);
-                await DriveToDestination(truck, destination, randomIntervalMs);
-                await DropOffCargo(truck, destination);
+                // Generate a random interval between 1000ms (1seconds) and 3000ms (3 seconds)
+                int randomIntervalMs = random.Next(1000, 3001);
+                    await DriveToDestination(truck, destination, randomIntervalMs, locationHistoryService);
+                    await DropOffCargo(truck, destination, cargoService);
+                }
             }
         }
 
@@ -121,9 +128,12 @@ namespace ShipAndThread.BlackBox
         /// Simulates the truck driving to a specified destination. Adds a delay
         /// to mimic the travel time and saves the truck's location history to the database.
         /// </summary>
-        private async Task DriveToDestination(Truck truck, (double Latitude, double Longitude) destination, int interval)
+        private async Task DriveToDestination(
+            Truck truck, 
+            (double Latitude, double Longitude) destination, 
+            int interval,
+            LocationHistoryService locationHistoryService)
         {
-            // Simulate driving to the destination
             await Task.Delay(interval);
 
             // Create location history
@@ -137,7 +147,7 @@ namespace ShipAndThread.BlackBox
             };
 
             // Add location history using the service
-            await _locationHistoryService.AddLocationHistoryAsync(locationHistory);
+            await locationHistoryService.AddLocationHistoryAsync(locationHistory);
             
             // Send the new location to all connected clients via SignalR
             await _hubContext.Clients.All.SendAsync("ReceiveLocationUpdate", new
@@ -153,7 +163,10 @@ namespace ShipAndThread.BlackBox
         /// Simulates dropping off a cargo item at the current destination.
         /// Updates the cargo status to Delivered but keeps it in the database.
         /// </summary>
-        private async Task DropOffCargo(Truck truck, (double Latitude, double Longitude) destination)
+        private async Task DropOffCargo(
+            Truck truck, 
+            (double Latitude, double Longitude) destination,
+            CargoService cargoService)
         {
             // Find the first cargo that is not already delivered
             var cargo = truck.CargoList.FirstOrDefault(c => c.Status != CargoStatus.Delivered);
@@ -164,7 +177,7 @@ namespace ShipAndThread.BlackBox
                 cargo.Status = CargoStatus.Delivered;
                 
                 // Update the cargo in the database using the service
-                await _cargoService.UpdateCargoAsync(cargo);
+                await cargoService.UpdateCargoAsync(cargo);
                 
                 // Remove from local tracking only, but keep in the truck's cargo list
                 _cargoes.Remove(cargo);
@@ -179,8 +192,11 @@ namespace ShipAndThread.BlackBox
         
         private async Task SendActiveCargoUpdateAsync()
         {
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var cargoService = scope.ServiceProvider.GetRequiredService<CargoService>();
             // Get all cargo items, including delivered ones
-            var allCargo = await _cargoService.GetAllCargoAsync();
+                var allCargo = await cargoService.GetAllCargoAsync();
             var cargoList = new List<object>();
 
             foreach (var cargo in allCargo)
@@ -205,9 +221,10 @@ namespace ShipAndThread.BlackBox
 
             await _hubContext.Clients.All.SendAsync("ReceiveCargoUpdate", cargoList);
         }
+        }
         
         /// <summary>
-        /// Runs the complete truck simulation process by initializing trucks, assigning cargo,
+        /// Runs the entire truck simulation process, including initializing trucks, assigning cargo,
         /// and simulating their routes. This method orchestrates the entire simulation workflow
         /// from start to finish, connecting all the individual simulation components.
         /// </summary>
@@ -226,17 +243,46 @@ namespace ShipAndThread.BlackBox
                     Console.WriteLine($"Assigned {cargoPerTruck} cargo items to Truck {truck.TruckId}");
                 }
 
-                // Step 3: Simulate each truck's route with random intervals
+                // Step 3: Simulate each truck's route using ThreadPool for parallel execution
+                Console.WriteLine("Starting route simulations using ThreadPool...");
+                
+                // Create a semaphore to limit concurrent threads (adjust based on system capabilities)
+                var maxConcurrentThreads = Math.Min(_trucks.Count, Environment.ProcessorCount * 2);
+                var semaphore = new SemaphoreSlim(maxConcurrentThreads);
+                
+                // Create tasks for each truck simulation
                 var simulationTasks = new List<Task>();
                 
                 foreach (Truck truck in _trucks)
                 {
-                    Console.WriteLine($"Starting route simulation for Truck {truck.TruckId}");
-                    simulationTasks.Add(SimulateTruckRouteAsync(truck));
+                    // Capture the truck in a local variable to avoid closure issues
+                    var truckToSimulate = truck;
+                    
+                    // Create a task that will use the ThreadPool
+                    var task = Task.Run(async () =>
+                    {
+                        try
+                        {
+                            // Acquire a slot in the semaphore
+                            await semaphore.WaitAsync();
+                            
+                            Console.WriteLine($"ThreadPool worker starting simulation for Truck {truckToSimulate.TruckId}");
+                            await SimulateTruckRouteAsync(truckToSimulate);
+                            Console.WriteLine($"ThreadPool worker completed simulation for Truck {truckToSimulate.TruckId}");
+                        }
+                        finally
+                        {
+                            // Release the semaphore slot
+                            semaphore.Release();
+                        }
+                    });
+                    
+                    simulationTasks.Add(task);
                 }
-
-                // Wait for all truck simulations to complete
+                
+                // Wait for all simulations to complete asynchronously
                 await Task.WhenAll(simulationTasks);
+                
                 Console.WriteLine("All truck simulations completed successfully");
             }
             catch (Exception ex)

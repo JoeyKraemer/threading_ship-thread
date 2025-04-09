@@ -27,7 +27,7 @@ builder.Services.AddSingleton<TruckService>();
 builder.Services.AddSingleton<CargoService>();
 builder.Services.AddSingleton<LocationHistoryService>();
 
-builder.Services.AddScoped<ITruckDataSimulationService, TruckDataSimulationService>();
+builder.Services.AddSingleton<ITruckDataSimulationService, TruckDataSimulationService>();
 
 builder.Services.AddSignalR();
 
