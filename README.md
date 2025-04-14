@@ -13,15 +13,15 @@ This project is a NHL Stenden student project for the course 3.3 Threading in C#
 
 ## Threading concepts applied in the project
 
-Out of the list of threading concepts, these are four that are applied to a cargo distribution and tracking system:
+The following threading concepts are implemented in this cargo distribution and tracking system:
 
-1. **Thread Pool** – Useful for handling multiple background tasks efficiently, such as updating GPS locations for multiple trucks. Instead of creating new threads for each update, a thread pool manages reusable worker threads, reducing overhead.
+1. **Thread Pool** – Used for efficient handling of multiple truck simulations in parallel. Instead of creating new threads for each truck, the system leverages the ThreadPool via `Task.Run()` to manage reusable worker threads, reducing overhead and improving performance. This is implemented in the `RunSimulationAsync` method of the `TruckDataGenerator` class.
 
-2. **Mutex** – Ideal for ensuring data integrity when multiple threads access shared resources, such as updating cargo inventory. If multiple processes attempt to modify the same cargo record (e.g., arrival confirmation), a mutex ensures only one thread modifies it at a time.
+2. **Semaphore** – Implemented using `SemaphoreSlim` to limit the number of concurrent truck simulations based on system capabilities. This prevents resource exhaustion by controlling how many threads from the ThreadPool can execute simultaneously. The semaphore is configured to use a maximum number of threads equal to the minimum of the truck count and twice the processor count.
 
-3. **Async & Await** (Task Parallel Library) – Helps with non-blocking operations, such as fetching data from remote servers or handling user requests in the UI. For instance, when querying truck statuses, async/await ensures the UI remains responsive while waiting for data.
+3. **Async & Await** – Extensively used throughout the application for non-blocking operations, such as database access, network communications, and UI responsiveness. This pattern allows the application to perform I/O-bound work without blocking threads, making efficient use of system resources. All service methods use async/await to ensure the application remains responsive.
 
-4. **Asynchronous I/O** - Handling real-time communication with trucks over the network without blocking threads. For example, the server uses asynchronous I/O to listen and respond to updates without blocking other operations, allowing trucks to send location updates every few seconds.
+4. **Asynchronous I/O** – Implemented for handling real-time communication with trucks and updating the UI via SignalR. The application uses asynchronous I/O operations for database access, network communications, and file operations, allowing it to handle multiple operations concurrently without blocking the main thread.
 
 ## Core Functionalities
 - Truck communication handling
@@ -41,6 +41,13 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 ```
 4. Build the solution
 5. Run the solution
+6. Start application
 
+### Troubleshooting
+If the browser doesn't open automatically:
+- Open your browser and navigate to `https://localhost:5001` or `http://localhost:5000`
+- If these ports are already in use, check the console output for the actual port being used
+- You may see a message like: `Now listening on: http://localhost:<port>` in the console
+- For HTTPS connections, you might need to accept the self-signed certificate
 
 *niceToHaves
