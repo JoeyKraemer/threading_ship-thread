@@ -46,44 +46,67 @@ else
 
         _hubConnection.On<List<object>>("ReceiveCargoUpdate", (updatedCargoObjects) =>
         {
-            // Convert the anonymous objects to Cargo objects
-            allCargo.Clear();
-            
             foreach (var obj in updatedCargoObjects)
-            {
-                // Convert the dynamic object to JSON and then to a Cargo object
+                {
                 var jsonElement = (JsonElement)obj;
+                int updatedId = jsonElement.GetProperty("Id").GetInt32();
+                int updatedTruckId = jsonElement.GetProperty("TruckId").GetInt32();
+                var updatedStatus = (CargoStatus)jsonElement.GetProperty("Status").GetInt32();
                 
-                var cargo = new Cargo
+                var existingCargo = allCargo.FirstOrDefault(c => c.Id == updatedId);
+                if (existingCargo != null)
                 {
-                    Id = jsonElement.GetProperty("Id").GetInt32(),
-                    TruckId = jsonElement.GetProperty("TruckId").GetInt32(),
-                    Status = (CargoStatus)jsonElement.GetProperty("Status").GetInt32()
-                };
-                
-                // Check if Truck property exists and is not null
-                if (jsonElement.TryGetProperty("Truck", out JsonElement truckElement) && 
-                    truckElement.ValueKind != JsonValueKind.Null)
-                {
-                    cargo.Truck = new Truck
+                    existingCargo.TruckId = updatedTruckId;
+                    existingCargo.Status = updatedStatus;
+                    
+                    if (jsonElement.TryGetProperty("Truck", out JsonElement truckElement) &&
+                        truckElement.ValueKind != JsonValueKind.Null)
                     {
-                        TruckId = truckElement.GetProperty("TruckId").GetInt32(),
-                        LicensePlate = truckElement.TryGetProperty("LicensePlate", out var lpElement) && 
-                                      lpElement.ValueKind != JsonValueKind.Null ? 
-                                      lpElement.GetString() : null,
-                        Capacity = truckElement.TryGetProperty("Capacity", out var capElement) && 
-                                  capElement.ValueKind != JsonValueKind.Null ? 
-                                  capElement.GetInt32() : null
-                    };
+                        if (existingCargo.Truck == null)
+                            existingCargo.Truck = new Truck();
+                        
+                        existingCargo.Truck.TruckId = truckElement.GetProperty("TruckId").GetInt32();
+                        existingCargo.Truck.LicensePlate = truckElement.TryGetProperty("LicensePlate", out var lpElement) && 
+                                                             lpElement.ValueKind != JsonValueKind.Null ? lpElement.GetString() : null;
+                        existingCargo.Truck.Capacity = truckElement.TryGetProperty("Capacity", out var capElement) && 
+                                                       capElement.ValueKind != JsonValueKind.Null ? capElement.GetInt32() : null;
+                    }
+                    else
+                    {
+                        existingCargo.Truck = null;
+                    }
                 }
-                
-                allCargo.Add(cargo);
+                else
+                {
+                    var newCargo = new Cargo
+                    {
+                        Id = updatedId,
+                        TruckId = updatedTruckId,
+                        Status = updatedStatus
+                    };
+                    
+                    if (jsonElement.TryGetProperty("Truck", out JsonElement truckElement) && 
+                        truckElement.ValueKind != JsonValueKind.Null)
+                    {
+                        newCargo.Truck = new Truck
+                        {
+                            TruckId = truckElement.GetProperty("TruckId").GetInt32(),
+                            LicensePlate = truckElement.TryGetProperty("LicensePlate", out var lpElement) && 
+                                           lpElement.ValueKind != JsonValueKind.Null ? lpElement.GetString() : null,
+                            Capacity = truckElement.TryGetProperty("Capacity", out var capElement) && 
+                                       capElement.ValueKind != JsonValueKind.Null ? capElement.GetInt32() : null
+                        };
+                    }
+                    
+                    allCargo.Add(newCargo);
+                }
             }
             
-            FilterResults(); // Reapply search
+            FilterResults();
             InvokeAsync(StateHasChanged);
         });
-
+        
+        // Start signalR connection
         await _hubConnection.StartAsync();
     }
 
