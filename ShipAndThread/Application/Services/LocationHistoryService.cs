@@ -35,9 +35,9 @@ public class LocationHistoryService
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteLocationHistoryAsync(int truckId)
+    public async Task DeleteLocationHistoryAsync(int id)
     {
-        var locationHistory = await _context.LocationHistories.FindAsync(truckId);
+        var locationHistory = await _context.LocationHistories.FindAsync(id);
         if (locationHistory != null)
         {
             _context.LocationHistories.Remove(locationHistory);

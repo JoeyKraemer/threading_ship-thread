@@ -124,6 +124,61 @@ body {
     grid-column: 2/6;
     margin-left: 15px;
     margin-top: 15px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.log h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.activity-entry {
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    border-left: 5px solid transparent;
+}
+
+.activity-time {
+    font-weight: bold;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.activity-message {
+    font-size: 15px;
+    color: #333;
+}
+
+.start-simulation-button {
+    background-color: black;
+    color: #FFE135;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 15px 0 0 15px;
+    transition: all 0.2s ease-in-out;
+    grid-column: 2/6;
+    width: fit-content;
+}
+
+.start-simulation-button:hover {
+    /*border: 2px solid #D7BC21;*/
+    background-color: black;
+    transform: scale(1.02);
 }
 
 /* search bar
@@ -254,4 +309,26 @@ body {
     margin-top: 20px;
     padding: 20px;
     background: #D3CFB9;
+}
+
+.cargo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.cargo-item {
+    background: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border-left: 5px solid #FFE135;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    font-size: 15px;
+    color: #333;
+}
+
+.cargo-label {
+    font-weight: bold;
+    color: #222;
 }

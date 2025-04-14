@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.DependencyInjection;
 using ShipAndThread.Infrastructure.Persistence;
+using ShipAndThread.Application.Services;
 
 namespace ShipAndThread.BlackBox;
 
@@ -22,6 +24,16 @@ public class TruckDataSimulationService : ITruckDataSimulationService
         using var scope = _services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         var hubContext = scope.ServiceProvider.GetRequiredService<IHubContext<CommunicationHub>>();
-        await AsyncDataGeneration.Go(context, hubContext);
+        var truckService = scope.ServiceProvider.GetRequiredService<TruckService>();
+        var cargoService = scope.ServiceProvider.GetRequiredService<CargoService>();
+        var locationHistoryService = scope.ServiceProvider.GetRequiredService<LocationHistoryService>();
+        
+        await AsyncDataGeneration.Go(
+            context, 
+            hubContext, 
+            truckService, 
+            cargoService, 
+            locationHistoryService,
+            _services);
     }
 }

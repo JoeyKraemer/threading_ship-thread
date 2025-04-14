@@ -1332,8 +1332,22 @@
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
       "System.Text.Encodings.Web/8.0.0": {},
-      "System.Text.Json/9.0.3": {},
-      "System.Threading.Channels/9.0.3": {},
+      "System.Text.Json/9.0.3": {
+        "runtime": {
+          "lib/net9.0/System.Text.Json.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.325.11113"
+          }
+        }
+      },
+      "System.Threading.Channels/9.0.3": {
+        "runtime": {
+          "lib/net9.0/System.Threading.Channels.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.325.11113"
+          }
+        }
+      },
       "xunit/2.9.3": {
         "dependencies": {
           "xunit.analyzers": "1.18.0",
@@ -1345,7 +1359,7 @@
         "runtime": {
           "lib/netstandard2.0/xunit.abstractions.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.0"
+            "fileVersion": "0.0.0.0"
           }
         }
       },
